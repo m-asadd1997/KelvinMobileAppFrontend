@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "KelvinMobileApp": {
@@ -21,12 +21,22 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/service-worker.js"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/lib/jquery-3.4.1.min.js",
+              "src/assets/js/lib/popper.min.js",
+              "src/assets/js/lib/bootstrap.min.js",
+              "src/assets/js/plugins/owl-carousel/owl.carousel.min.js",
+              "src/assets/js/plugins/jquery-circle-progress/circle-progress.min.js",
+              "src/assets/js/base.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -55,7 +65,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -85,7 +97,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"
@@ -119,6 +132,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "KelvinMobileApp"
+    }
+  },
+  "defaultProject": "KelvinMobileApp",
+  "cli": {
+    "analytics": false
+  }
 }
