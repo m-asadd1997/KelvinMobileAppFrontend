@@ -129,16 +129,16 @@ $(".form-group .form-control").keyup(function () {
 
 ///////////////////////////////////////////////////////////////////////////
 // Searchbox Toggle
-$(".toggle-searchbox").click(function () {
-    var a = $("#search").hasClass("show");
-    if (a) {
-        $("#search").removeClass("show");
-    }
-    else {
-        $("#search").addClass("show");
-        $("#search .form-control").focus();
-    }
-});
+// $(".toggle-searchbox").click(function () {
+//     var a = $("#search").hasClass("show");
+//     if (a) {
+//         $("#search").removeClass("show");
+//     }
+//     else {
+//         $("#search").addClass("show");
+//         $("#search .form-control").focus();
+//     }
+// });
 ///////////////////////////////////////////////////////////////////////////
 
 
