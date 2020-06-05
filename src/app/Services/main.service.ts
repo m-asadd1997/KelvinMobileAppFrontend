@@ -14,5 +14,13 @@ export class MainService {
     return this.http.post(environment.baseUrl+"token/user",obj);
   }
 
+  searchUsers(name):Observable<any>{
+    return this.http.get(environment.baseUrl+"token/"+name);
+  }
+
+  getUserById(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"token/user/"+id)
+  }
+
 
 }

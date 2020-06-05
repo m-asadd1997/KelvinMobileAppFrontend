@@ -28,7 +28,7 @@
             <h4>Fill the form to join us</h4>
         </div>
         <div class="section mt-2 mb-5">
-            <form action="app-pages.html">
+            <form>
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
@@ -69,16 +69,12 @@
 
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" (click)="emptyValue()" type="button" data-toggle="dropdown">
-                        Select User Type
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" (click)="insertValue1()">User</a>
-                        <a class="dropdown-item" (click)="insertValue2()">Business User</a>
-                       
-                    </div>
-                </div>
+                        
+                        <select class="browser-default custom-select" name="userType"  [(ngModel)]="this.registerObj.userType">
+                            <option value="" selected disabled>Select User Type</option>
+                            <option  value="User">User</option>
+                            <option  value="Business User">Business User</option>
+                          </select>
                 </div>
                 </div>
 
@@ -92,15 +88,26 @@
                 </div>
 
                 <div class="form-button-group">
-                    <button type="button" (click)="registerUser()"  class="btn btn-primary btn-block btn-lg">Register</button>
+                    <button type="submit" (click)="registerUser()"  class="btn btn-primary btn-block btn-lg">Register</button>
                 </div>
 
             </form>
         </div>
     </div>
+</div>
 
-    
+<div id="toast-15" class="toast-box toast-bottom bg-success">
+    <div class="in">
+        <div class="text">
+            Success Color
+        </div>
+    </div>
+</div>
 
-
-
+<div id="toast-16" class="toast-box toast-bottom bg-danger">
+    <div class="in">
+        <div class="text">
+            Danger Color
+        </div>
+    </div>
 </div>

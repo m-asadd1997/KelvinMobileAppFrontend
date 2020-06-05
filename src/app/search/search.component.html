@@ -1,0 +1,42 @@
+
+<br>
+<div class="container">
+<div class="form-group">
+    <div class="form-group searchbox">
+    <input type="text" class="form-control" name="searchName"  [(ngModel)]="searchName" (input)="getUsersOnChange()"  placeholder="Search here...">
+    <i class="input-icon">
+        <img src="assets/search4.png" height="18px" width="18px">
+    </i>
+</div>
+  </div>
+ <div *ngIf="!showError"> 
+  <div class="listview-title mt-2">
+    <div>
+        Search Results for <strong class="text-primary">"{{searchName}}"</strong>
+    </div>
+</div>
+  <ul class="listview image-listview link-listview">
+      <li *ngFor="let user of listOfUsers" (click)="goToProfile(user.id)">
+          <a>
+        <div class="item">
+            <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="image">
+            <div class="in">
+                <div style="font-size: larger;
+                font-weight: 500;
+                margin-top: 3px;" >{{user.name}}</div>
+                
+            </div>
+        </div>
+    </a>
+        </li>
+      
+  </ul>
+</div>
+<div *ngIf="showError">
+  
+        <div>
+           No results found for <strong class="text-danger">"{{searchName}}"</strong>
+        </div> 
+   
+</div>
+</div>

@@ -10,19 +10,27 @@ import { environment } from '../environments/environment';
 import { NoopInterceptor } from './request.intercept';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
+import { SearchComponent } from './search/search.component';
+import { IonicModule } from '@ionic/angular';
+import { OwlModule } from 'ngx-owl-carousel';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    NewsfeedPageComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js',{enabled: environment.production}),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    IonicModule.forRoot(),
+    OwlModule
   ],
   providers: [
     {
