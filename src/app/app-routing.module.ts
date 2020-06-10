@@ -5,6 +5,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,9 @@ const routes: Routes = [
   },
   {
     path:"profiles/:id",component:ProfileComponent
+  },
+  {
+    path:"notifications",component:NotificationsComponent
   }
 ];
 

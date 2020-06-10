@@ -26,7 +26,8 @@ export class LoginPageComponent implements OnInit {
     this.service.checkUserandPass(uname, p).subscribe(
       res => {
         if (res.status == 200) {
-          this.showToast();        
+          this.showToast(); 
+          console.log(res.result)       
           sessionStorage.setItem("userId",res.result.id);
           sessionStorage.setItem("token", res.result.token);
           sessionStorage.setItem("email", res.result.email);

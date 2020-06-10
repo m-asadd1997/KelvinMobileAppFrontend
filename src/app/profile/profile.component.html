@@ -2,18 +2,16 @@
     
     <div class="appHeader bg-primary text-light" >
         <div class="left">
-            <a href="javascript:;" class="headerButton goBack">
-                <!-- <ion-icon name="chevron-back-outline"></ion-icon> -->
+            <a (click)="goBack()" class="headerButton goBack">
+                <ion-icon src="assets/left-arrow.svg"></ion-icon>
             </a>
         </div>
         <div class="pageTitle">{{userName}}</div>
         <div class="right">
             <a href="javascript:;" class="headerButton">
-                <!-- <ion-icon name="mail-outline"></ion-icon> -->
+                <ion-icon src="assets/email.svg"></ion-icon>
             </a>
-            <a href="javascript:;" class="headerButton">
-                <!-- <ion-icon name="person-add-outline"></ion-icon> -->
-            </a>
+           
         </div>
     </div>
     <!-- * App Header -->
@@ -21,6 +19,7 @@
     <!-- App Capsule -->
     <div id="appCapsule" >
 
+        <div >
         <div class="section mt-2">
             <div class="profile-head">
                 <div class="avatar">
@@ -28,11 +27,21 @@
                 </div>
                 <div class="in">
                     <h3 class="name">{{userName}}</h3>
-                    <h5 class="subtext">Designer</h5>
+                    <div class="subtext" *ngIf="!notificationBtns && isFriends">
+                        <button type="button" class="btn btn-outline-success btn-sm rounded shadowed mr-1 mb-1" data-toggle="modal" data-target="#DialogBasic">friends</button>
+                    </div>
+                    <div class="subtext" *ngIf="!notificationBtns && !isFriends">
+                        <button type="button" [class]="btnColor" (click)="friendsButtonClick()">{{friendStatus}}</button>
+                    </div>
+                    <div class="subtext" *ngIf="notificationBtns && !isFriends">
+                        <button type="button" class="btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1" (click)="acceptRequest()">Accept</button>
+                        <button  type="button" class="btn btn-outline-danger btn-sm rounded shadowed mr-1 mb-1" (click)="deleteRequest()">Delete</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-
+    </div>
         <div class="section full mt-2">
             <div class="profile-stats pl-2 pr-2">
                 <a href="#" class="item">
@@ -69,22 +78,17 @@
                 <ul class="nav nav-tabs lined iconed" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#feed" role="tab">
-                            <!-- <ion-icon name="grid-outline"></ion-icon> -->
+                            <ion-icon src="assets/grid.svg"></ion-icon>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#friends" role="tab">
-                            <!-- <ion-icon name="people-outline"></ion-icon> -->
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#bookmarks" role="tab">
-                            <!-- <ion-icon name="bookmark-outline"></ion-icon> -->
+                            <ion-icon src="assets/group.svg"></ion-icon>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-                            <!-- <ion-icon name="settings-outline"></ion-icon> -->
+                             <ion-icon src="assets/settings.svg"></ion-icon> 
                         </a>
                     </li>
                 </ul>
@@ -108,33 +112,6 @@
                             </div>
                             <div class="col-4 mb-2">
                                 <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/4.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/5.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/6.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/4.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/5.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/6.jpg" alt="image" class="imaged w-100">
                             </div>
                         </div>
                     </div>
@@ -328,185 +305,19 @@
 
     </div>
 
-<!-- App Bottom Menu -->
-<div class="appBottomMenu">
-    <a href="index.html" class="item">
-        <div class="col">
-            <!-- <ion-icon name="home-outline"></ion-icon> -->
-        </div>
-    </a>
-    <a href="app-components.html" class="item">
-        <div class="col">
-            <!-- <ion-icon name="cube-outline"></ion-icon> -->
-        </div>
-    </a>
-    <a href="page-chat.html" class="item">
-        <div class="col">
-            <!-- <ion-icon name="chatbubble-ellipses-outline"></ion-icon> -->
-            <span class="badge badge-danger">5</span>
-        </div>
-    </a>
-    <a href="app-pages.html" class="item">
-        <div class="col">
-            <!-- <ion-icon name="layers-outline"></ion-icon> -->
-        </div>
-    </a>
-    <a href="javascript:;" class="item" data-toggle="modal" data-target="#sidebarPanel">
-        <div class="col">
-            <!-- <ion-icon name="menu-outline"></ion-icon> -->
-        </div>
-    </a>
-</div>
-<!-- * App Bottom Menu -->
-
-<!-- App Sidebar -->
-<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-
-                <!-- profile box -->
-                <div class="profileBox">
-                    <div class="image-wrapper">
-                        <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="imaged rounded">
-                    </div>
-                    <div class="in">
-                        <strong>Julian Gruber</strong>
-                        <div class="text-muted">
-                            <!-- <ion-icon name="location"></ion-icon> -->
-                            California
-                        </div>
-                    </div>
-                    <a href="javascript:;" class="close-sidebar-button" data-dismiss="modal">
-                        <!-- <ion-icon name="close"></ion-icon> -->
-                    </a>
+    <app-bottom-menu></app-bottom-menu>
+    <div class="modal fade dialogbox" id="DialogBasic" data-backdrop="static" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Remove Friend?</h5>
                 </div>
-                <!-- * profile box -->
-
-                <ul class="listview flush transparent no-line image-listview mt-2">
-                    <li>
-                        <a href="index.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <!-- <ion-icon name="home-outline"></ion-icon> -->
-                            </div>
-                            <div class="in">
-                                Discover
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-components.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <!-- <ion-icon name="cube-outline"></ion-icon> -->
-                            </div>
-                            <div class="in">
-                                Components
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-pages.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <!-- <ion-icon name="layers-outline"></ion-icon> -->
-                            </div>
-                            <div class="in">
-                                <div>Pages</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="page-chat.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <!-- <ion-icon name="chatbubble-ellipses-outline"></ion-icon> -->
-                            </div>
-                            <div class="in">
-                                <div>Chat</div>
-                                <span class="badge badge-danger">5</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <div class="icon-box bg-primary">
-                                <!-- <ion-icon name="moon-outline"></ion-icon> -->
-                            </div>
-                            <div class="in">
-                                <div>Dark Mode</div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input dark-mode-switch"
-                                        id="darkmodesidebar">
-                                    <label class="custom-control-label" for="darkmodesidebar"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="listview-title mt-2 mb-1">
-                    <span>Friends</span>
+                <div class="modal-footer">
+                    <div class="btn-inline">
+                        <a href="#" class="btn btn-text-secondary" data-dismiss="modal">No</a>
+                        <a (click)="deleteRequest()" class="btn btn-text-primary" data-dismiss="modal">Yes</a>
+                    </div>
                 </div>
-                <ul class="listview image-listview flush transparent no-line">
-                    <li>
-                        <a href="page-chat.html" class="item">
-                            <img src="assets/img/sample/avatar/avatar7.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Sophie Asveld</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="page-chat.html" class="item">
-                            <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Sebastian Bennett</div>
-                                <span class="badge badge-danger">6</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="page-chat.html" class="item">
-                            <img src="assets/img/sample/avatar/avatar10.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Beth Murphy</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="page-chat.html" class="item">
-                            <img src="assets/img/sample/avatar/avatar2.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Amelia Cabal</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="page-chat.html" class="item">
-                            <img src="assets/img/sample/avatar/avatar5.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Doe</div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-
             </div>
-
-            <!-- sidebar buttons -->
-            <div class="sidebar-buttons">
-                <a href="javascript:;" class="button">
-                    <!-- <ion-icon name="person-outline"></ion-icon> -->
-                </a>
-                <a href="javascript:;" class="button">
-                    <!-- <ion-icon name="archive-outline"></ion-icon> -->
-                </a>
-                <a href="javascript:;" class="button">
-                    <!-- <ion-icon name="settings-outline"></ion-icon> -->
-                </a>
-                <a href="javascript:;" class="button">
-                    <!-- <ion-icon name="log-out-outline"></ion-icon> -->
-                </a>
-            </div>
-            <!-- * sidebar buttons -->
         </div>
     </div>
-</div>

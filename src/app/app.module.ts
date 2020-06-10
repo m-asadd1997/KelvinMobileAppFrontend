@@ -14,6 +14,11 @@ import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
 import { SearchComponent } from './search/search.component';
 import { IonicModule } from '@ionic/angular';
 import { OwlModule } from 'ngx-owl-carousel';
+import { ProfileComponent } from './profile/profile.component';
+import { AppSideBarComponent } from './app-side-bar/app-side-bar.component';
+import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { OwlModule } from 'ngx-owl-carousel';
     LoginPageComponent,
     RegisterPageComponent,
     NewsfeedPageComponent,
-    SearchComponent
+    SearchComponent,
+    ProfileComponent,
+    AppSideBarComponent,
+    BottomMenuComponent,
+    NotificationsComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -30,7 +40,8 @@ import { OwlModule } from 'ngx-owl-carousel';
     HttpClientModule,
     FormsModule,
     IonicModule.forRoot(),
-    OwlModule
+    OwlModule,
+  
   ],
   providers: [
     {
