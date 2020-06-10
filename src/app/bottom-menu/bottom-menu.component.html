@@ -1,0 +1,26 @@
+<!-- App Bottom Menu -->
+<div class="appBottomMenu">
+   
+    <a href="javascript:;" class="item" data-toggle="modal" (click)="getAllFriends()" data-target="#sidebarPanel">
+        <div class="col">
+            <ion-icon src="assets/menu.svg"></ion-icon>
+        </div>
+    </a>
+    <a  class="item" (click)="goToNewsFeed()">
+        <div class="col">
+            <ion-icon src="assets/home.svg"></ion-icon>
+        </div>
+    </a>
+    <a (click)="goToNotifications()" class="item">
+        <div class="col">
+            <ion-icon src="assets/notification.svg"></ion-icon>
+            <span class="badge badge-danger">5</span>
+        </div>
+    </a>
+</div>
+<!-- * App Bottom Menu -->
+
+<!-- App Sidebar -->
+<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog" >
+    <app-app-side-bar [friendsArray]="friendsArray"></app-app-side-bar>
+</div>

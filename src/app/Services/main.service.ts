@@ -22,5 +22,23 @@ export class MainService {
     return this.http.get(environment.baseUrl+"token/user/"+id)
   }
 
+  addFriend(friendsIdObj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/send-request",friendsIdObj);
+  }
 
+  cancelRequest(friendsIdObj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/cancel-request",friendsIdObj)
+  }
+
+  acceptRequest(friendsIdObj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/accept-request",friendsIdObj);
+  }
+
+  getAllRequests(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/get-all-requests/"+id);
+  }
+
+  getAllFriends(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/get-all-friends/"+id);
+  }
 }
