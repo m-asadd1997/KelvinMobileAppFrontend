@@ -14,7 +14,7 @@
     <a (click)="goToNotifications()" class="item">
         <div class="col">
             <ion-icon src="assets/notification.svg"></ion-icon>
-            <span class="badge badge-danger">5</span>
+            <span class="badge badge-danger" >0</span>
         </div>
     </a>
 </div>
@@ -22,5 +22,95 @@
 
 <!-- App Sidebar -->
 <div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog" >
-    <app-app-side-bar [friendsArray]="friendsArray"></app-app-side-bar>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+    
+                <!-- profile box -->
+                <div class="profileBox">
+                    
+                    <div class="image-wrapper">
+                        <img [src]="
+                        profilePicture != null
+                          ? 'data:image/jpeg;base64,' + profilePicture
+                          : 'assets/user.png'
+                      " 
+                      alt="image"
+                      class="imaged rounded">
+                    </div>
+                    <div class="in">
+                        <strong (click)="goToMyProfile()" data-dismiss="modal">{{userName}}</strong>
+                        
+                   
+                </div>
+                    <a href="javascript:;" class="close-sidebar-button" data-dismiss="modal">
+                        <ion-icon src="assets/close.svg"></ion-icon>
+                    </a>
+                </div>
+                <!-- * profile box -->
+    
+                <ul class="listview flush transparent no-line image-listview mt-2">
+                    <li>
+                        <a class="item" data-dismiss="modal" (click)="goToNewsFeed()">
+                            <div class="icon-box bg-primary">
+                                <ion-icon src="assets/home.svg"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Discover
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon src="assets/message.svg"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>Chat</div>
+                                <span class="badge badge-danger">5</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon src="assets/settings.svg"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>Settings</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+    
+                <div class="listview-title mt-2 mb-1">
+                    <span>Friends</span>
+                </div>
+                <div>
+                <ul class="listview image-listview flush transparent no-line">
+                    <li *ngFor="let user of friendsArray">
+                        <a  class="item">
+                            <img [src]="
+                            user.profilePicture != null
+                              ? 'data:image/jpeg;base64,' + user.profilePicture
+                              : 'assets/user.png'
+                          "  alt="image" class="image">
+                            <div class="in">
+                                <div>{{user.name}}</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+           
+    
+            <!-- sidebar buttons -->
+            <div class="sidebar-buttons">
+                <a  class="button" (click)="logout()" data-dismiss="modal">
+                    <ion-icon src="assets/logout.svg"></ion-icon>
+                </a>
+            </div>
+            <!-- * sidebar buttons -->
+        </div>
+    </div>
 </div>

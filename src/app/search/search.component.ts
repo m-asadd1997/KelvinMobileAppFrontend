@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
       
       if(d.status == 200){
         
-        d.result.filter(m=> m.id != this.id).map(n=>{
+        d.result.map(n=>{
           let index = this.listOfUsers.findIndex(d=> d.id == n.id);
           if(!this.listOfUsers.includes(index))
             this.listOfUsers.push(n);          
@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit {
   }
 
   goToProfile(id){
-    console.log(id)
+    console.log("this is id",id)
     this.router.navigate(['profiles/',id])
   }
 
