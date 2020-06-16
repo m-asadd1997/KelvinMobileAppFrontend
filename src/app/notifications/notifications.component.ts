@@ -15,10 +15,11 @@ export class NotificationsComponent implements OnInit {
   friendsIdObj : FriendsIds = new FriendsIds();
   requestStatus;
   showReqStatus = false;
-  
+  noOfNotifications = 0;
   constructor(private router: Router, private service: MainService) { }
 
   ngOnInit(): void {
+    this.noOfNotifications = 0;
     this.getAllRequests()
   }
 
@@ -29,9 +30,17 @@ export class NotificationsComponent implements OnInit {
       if(d.status == 200){
         d.result.map(u=>{
           this.usersArray.push(u.user);
+          
       })
+      this.noOfNotifications = this.usersArray.length;
       }
-      })     
+      }) 
+      
+        // = this.usersArray.length;
+      
+      
+      
+      
   }
 
   acceptRequest(id){

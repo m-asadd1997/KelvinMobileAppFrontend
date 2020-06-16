@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../Services/login.service';
 import { ToastUtilService } from '../Services/toast-util.service';
+import { MainService } from '../Services/main.service';
+import { Profile } from '../profile/profile';
 
 @Component({
   selector: 'app-login-page',
@@ -10,7 +12,9 @@ import { ToastUtilService } from '../Services/toast-util.service';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private router: Router, private service: LoginService,private toastService:ToastUtilService) { }
+  profileObj : Profile = new Profile();
+  constructor(private router: Router, private service: LoginService,private toastService:ToastUtilService,private mainService: MainService) { }
+
 
   ngOnInit(): void {
     sessionStorage.clear();
@@ -32,7 +36,9 @@ export class LoginPageComponent implements OnInit {
           sessionStorage.setItem("token", res.result.token);
           sessionStorage.setItem("email", res.result.email);
           sessionStorage.setItem("username", res.result.username);
-        
+          sessionStorage.setItem("profilePicture",res.result.profilePicture)
+         
+          
           setTimeout(() => {this.router.navigate(['newsfeed'])
             // this.router.navigate([""]);
           }, 1000);
@@ -57,5 +63,6 @@ export class LoginPageComponent implements OnInit {
   showToast(){
     this.toastService.showToast("Success","#toast-15")
   }
+
 
 }

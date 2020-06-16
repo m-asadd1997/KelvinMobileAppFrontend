@@ -22,11 +22,19 @@
         <div >
         <div class="section mt-2">
             <div class="profile-head">
-                <div class="avatar">
-                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                <div class="avatar" data-toggle="modal" data-target="#actionSheet" (click)="showClose()">
+                    <img [src]="
+                    profileObj.profilePicture != null
+                      ? 'data:image/jpeg;base64,' + profileObj.profilePicture
+                      : 'assets/user.png'
+                  "
+                   alt="avatar" 
+                   class="imaged w64 rounded"
+                   >
                 </div>
                 <div class="in">
                     <h3 class="name">{{userName}}</h3>
+                    <div *ngIf="hideRequestButtons">
                     <div class="subtext" *ngIf="!notificationBtns && isFriends">
                         <button type="button" class="btn btn-outline-success btn-sm rounded shadowed mr-1 mb-1" data-toggle="modal" data-target="#DialogBasic">friends</button>
                     </div>
@@ -37,6 +45,7 @@
                         <button type="button" class="btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1" (click)="acceptRequest()">Accept</button>
                         <button  type="button" class="btn btn-outline-danger btn-sm rounded shadowed mr-1 mb-1" (click)="deleteRequest()">Delete</button>
                     </div>
+                </div>
                     
                 </div>
             </div>
@@ -45,13 +54,13 @@
         <div class="section full mt-2">
             <div class="profile-stats pl-2 pr-2">
                 <a href="#" class="item">
-                    <strong>152</strong>photo
+                    <strong>152</strong>photos
                 </a>
                 <a href="#" class="item">
                     <strong>52</strong>albums
                 </a>
                 <a href="#" class="item">
-                    <strong>27k</strong>followers
+                    <strong>{{noOfFriends}}</strong>friends
                 </a>
 
                 <a href="#" class="item">
@@ -62,13 +71,76 @@
 
         <div class="section mt-1 mb-2">
             <div class="profile-info">
-                <div class=" bio">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at magna porttitor lorem mollis
-                    ornare. Fusce varius varius massa.
+                <div class="bio">
+                   {{description}}
                 </div>
-                <div class="link">
-                    <a href="#">Paris</a>,
-                    <a href="#">France</a>
+                <div class="link" *ngIf="!hideRequestButtons">
+                    <!-- <button type="button" class="btn btn-sm btn-outline-primary rounded shadowed mr-1 mb-1" *ngIf="!descriptionSection" (click)="toggleDescriptionSection()">
+                        <ion-icon src="assets/edit1.svg"></ion-icon> Add Description
+                    </button> -->
+                    <button type="button" class="btn btn-sm btn-light rounded shadowed mr-1 mb-1" data-toggle="modal" data-target="#ModalForm" style="width: 50px;height: 25px;margin-top: 2%;">
+                        <ion-icon style="font-size: 20px;" src="assets/edit1.svg"></ion-icon>
+                    </button>
+                    <!-- <div class="form-group basic" *ngIf="descriptionSection">
+                        <div class="input-wrapper">
+                            <label class="label" for="decription">Add Description</label>
+                            <textarea id="decription" rows="1" class="form-control"></textarea>
+                        </div>
+                        <div style="margin-top: 2%;">
+                        <button type="button" class="btn btn-sm btn-outline-success rounded shadowed mr-1 mb-1" style="widows: 20px;height: 20px;">
+                            save
+                            
+                        </button>
+                        <button (click)="toggleDescriptionSection()" type="button" class="btn btn-sm btn-outline-danger rounded shadowed mr-1 mb-1" style="height: 20px;">
+                           
+                            cancel
+                        </button>
+                    </div>
+                    </div> -->
+                    <div class="modal fade modalbox" id="ModalForm" data-backdrop="static" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{userName}}</h5>
+                                    <a  style="margin-left: 60%;" (click)="saveDescription()" data-dismiss="modal">Save</a>
+                                    <a  data-dismiss="modal">Close</a>
+
+
+                                </div>
+                                <div class="modal-body">
+                                    <div class="login-form">
+                                        <div class="section mt-2">
+                                            <!-- <h1>Get started</h1> -->
+                                            <!-- <h4>Edit Bio</h4> -->
+                                        </div>
+                                        <div class="section mt-4 mb-5">
+                                            <form>
+                                                <div class="form-group basic">
+                                                    <div class="input-wrapper">
+                                                        <label class="label" style="font-size: medium;" for="bio">Add Description</label>
+                                                        <textarea type="text" rows="1" class="form-control" name="description" id="bio" [(ngModel)]="description"
+                                                            ></textarea>
+                                                       
+                                                    </div>
+                                                </div>
+            
+                                               
+            
+                                              
+                                                
+                                                <!-- <div class="mt-2">
+                                                    <button type="button" class="btn btn-primary btn-block btn-lg"
+                                                        data-dismiss="modal">Close</button>
+                                                </div> -->
+            
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -320,4 +392,49 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade action-sheet" id="actionSheet" tabindex="-1" role="dialog" *ngIf="!hideRequestButtons">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Profile Picture</h5>
+                </div>
+                <div class="modal-body">
+                    <ul class="action-button-list">
+                        <li>
+                            <label for="file"  class="btn btn-list text-primary" >
+                                <span>Select Picture
+                                    
+                                </span>
+                                <input type="file" (change)="onImageChange($event)" id="file" style="display: none" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                
+                            </label>
+                        </li>
+                       
+                        <li class="action-divider"></li>
+                        <li *ngIf="!showCloseOnAction">
+                            <a (click)="saveProfilePicture()" class="btn btn-list text-primary" data-dismiss="modal" >
+                                <span>Save</span>
+                            </a>
+                        </li>
+                        <li *ngIf="showCloseOnAction">
+                            <a  class="btn btn-list text-danger" data-dismiss="modal" >
+                                <span>Cancel</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast-11" class="toast-box toast-center">
+        <a  data-dismiss="modal" ></a>
+        <div class="in">
+            <ion-icon src="assets/check-box.svg" class="text-success"></ion-icon>
+            <div class="text">
+                Profile picture updated
+            </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-text-light close-button">CLOSE</button>
     </div>

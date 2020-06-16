@@ -11,21 +11,49 @@ export class AppSideBarComponent implements OnInit {
 
   userName;
   id;
-  @Input('friendsArray') friendsArray = [];
+  friendsArray = [];
+  profilePicture;
 
   constructor(private router: Router,private service: MainService) { }
 
   ngOnInit(): void {
-    this.userName = sessionStorage.getItem('username')
+    this.id = sessionStorage.getItem('userId');
+    this.userName = sessionStorage.getItem('username');
+    this.profilePicture = sessionStorage.getItem('profilePicture');
+    
   }
 
-  goToNewsFeed(){
+  goToNewsFeed()
+  {
     this.router.navigate(['newsfeed'])
   }
 
   logout(){
     sessionStorage.clear();
     this.router.navigate(['']);
+  }
+
+  goToMyProfile(){
+    this.router.navigate(['profiles/',this.id])
+  }
+
+  getAllFriends(){
+    this.friendsArray = [];
+    this.id = sessionStorage.getItem('userId')
+    this.service.getAllFriends(this.id).subscribe(d=>{
+      if(d.status==200){
+        d.result.map(u=>{
+          this.friendsArray.push(u.friend);
+        })
+      }
+     
+    })
+  }
+
+ 
+
+  goToNotifications(){
+    this.router.navigate(['notifications'])
   }
 
   

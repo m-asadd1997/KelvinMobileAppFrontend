@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,7 +8,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MainService {
 
+  private sendPictureFromProfile = new Subject<any>();
+  sendPicture$ = this.sendPictureFromProfile.asObservable();
+
   constructor(private http:HttpClient) { }
+
+  sendPicture(picture){
+    this.sendPictureFromProfile.next(picture);
+  }
 
   registerUser(obj):Observable<any>{
     return this.http.post(environment.baseUrl+"token/user",obj);
@@ -41,4 +48,18 @@ export class MainService {
   getAllFriends(id):Observable<any>{
     return this.http.get(environment.baseUrl+"api/get-all-friends/"+id);
   }
+
+  getProfile(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/profile/getprofile/"+id);
+  }
+
+  saveDescription(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"token/description",obj);
+  }
+
+  saveProfilePicture(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"token/picture",obj)
+  }
+
+  
 }

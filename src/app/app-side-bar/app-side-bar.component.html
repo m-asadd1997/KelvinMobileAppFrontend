@@ -1,17 +1,24 @@
 
+<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog" >
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-body p-0">
 
             <!-- profile box -->
             <div class="profileBox">
+                
                 <div class="image-wrapper">
-                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="imaged rounded">
+                    <img [src]="profilePicture != null
+                      ? 'data:image/jpeg;base64,' + profilePicture
+                      : 'assets/user.png'" 
+                  alt="image"
+                  class="imaged rounded">
                 </div>
                 <div class="in">
-                    <strong>{{userName}}</strong>
+                    <strong (click)="goToMyProfile()" data-dismiss="modal">{{userName}}</strong>
                     
-                </div>
+               
+            </div>
                 <a href="javascript:;" class="close-sidebar-button" data-dismiss="modal">
                     <ion-icon src="assets/close.svg"></ion-icon>
                 </a>
@@ -77,4 +84,24 @@
         </div>
         <!-- * sidebar buttons -->
     </div>
+</div>
+</div>
+<div class="appBottomMenu">
+   
+    <a href="javascript:;" class="item" data-toggle="modal" (click)="getAllFriends()" data-target="#sidebarPanel">
+        <div class="col">
+            <ion-icon src="assets/menu.svg"></ion-icon>
+        </div>
+    </a>
+    <a  class="item" (click)="goToNewsFeed()">
+        <div class="col">
+            <ion-icon src="assets/home.svg"></ion-icon>
+        </div>
+    </a>
+    <a (click)="goToNotifications()" class="item">
+        <div class="col">
+            <ion-icon src="assets/notification.svg"></ion-icon>
+            <span class="badge badge-danger">5</span>
+        </div>
+    </a>
 </div>
