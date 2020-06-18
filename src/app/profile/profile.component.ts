@@ -4,6 +4,7 @@ import { MainService } from '../Services/main.service';
 import { FriendsIds } from './friendsIds';
 import { Profile } from './profile';
 import { ToastUtilService } from '../Services/toast-util.service';
+import { NotificationService } from '../Services/notification.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class ProfileComponent implements OnInit {
   noOfFriends;
   picture;
   showCloseOnAction: boolean = true;
-  constructor(private router: Router,private activateRoute:ActivatedRoute,private service: MainService,private toastService: ToastUtilService) { }
+  constructor(private router: Router,private notificationService:NotificationService,private activateRoute:ActivatedRoute,private service: MainService,private toastService: ToastUtilService) { }
 
   ngOnInit(): void {
     this.id = this.activateRoute.snapshot.params['id'];
@@ -108,6 +109,7 @@ export class ProfileComponent implements OnInit {
      this.populateFriendsIdObj();
       this.service.addFriend(this.friendsIdObj).subscribe(d=>{
         if(d.status == 200){
+          this.notificationService.updateNotification()
          this.changeBtnToCancelRequest()         
         }
         else{
@@ -119,6 +121,7 @@ export class ProfileComponent implements OnInit {
       this.populateFriendsIdObj()
       this.service.cancelRequest(this.friendsIdObj).subscribe(d=>{
         if(d.status == 200){
+          this.notificationService.updateNotification()
          this.changeBtnToAddFriend();
         }     
         else{
@@ -133,6 +136,7 @@ export class ProfileComponent implements OnInit {
     this.populateFriendsIdObj();
     this.service.acceptRequest(this.friendsIdObj).subscribe(d=>{
       if(d.status == 200){
+        this.notificationService.updateNotification()
         this.changeBtnToFriends()
       }
       else{
@@ -147,6 +151,7 @@ export class ProfileComponent implements OnInit {
     this.service.cancelRequest(this.friendsIdObj).subscribe(d=>{
       if(d.status == 200){
         this.changeBtnToAddFriend()
+        this.notificationService.updateNotification()
       }
       else{
         console.log("ERROR");
@@ -239,7 +244,7 @@ export class ProfileComponent implements OnInit {
        if(d.status == 200){
        
         this.service.sendPicture(this.profileObj.profilePicture);
-         this.toastService.showToast("Profile picture updated","#toast-11")
+        //  this.toastService.showToast("Profile picture updated","#toast-3")
          sessionStorage.setItem("profilePicture",this.profileObj.profilePicture)
        }
      })

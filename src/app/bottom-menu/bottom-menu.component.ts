@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from '../Services/main.service';
+import { NotificationService } from '../Services/notification.service';
 
 @Component({
   selector: 'app-bottom-menu',
@@ -9,74 +10,92 @@ import { MainService } from '../Services/main.service';
 })
 export class BottomMenuComponent implements OnInit {
 
-  id;
+  id = sessionStorage.getItem('userId')
   friendsArray = [];
   userName: string;
   profilePicture;
   checkStorage;
+  notificationCount: number = 0
   // @Input("noOfNotifications") noOfNotifications:number;
-  
-  constructor(private router:Router,private service: MainService) { }
+
+  constructor(private router: Router, private service: MainService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.id = sessionStorage.getItem('userId');
     this.userName = sessionStorage.getItem('username');
-    
-      // this.profilePicture = sessionStorage.getItem('profilePicture')
+
+    // this.profilePicture = sessionStorage.getItem('profilePicture')
     this.checkSessionStorage();
-    
-    
-    
-    
+
+
+
+
     this.getProfilePicture();
-    console.log(this.profilePicture);
-    
-   
-   
+    // console.log(this.profilePicture);
+
+    this.getNotificationCount();
+    this.updateNotificationCount();
+
+
+
   }
- 
-  checkSessionStorage(){
+
+  checkSessionStorage() {
     this.checkStorage = sessionStorage.getItem('profilePicture')
-    if(this.checkStorage !== "null"){
+    if (this.checkStorage !== "null") {
       this.profilePicture = sessionStorage.getItem('profilePicture')
     }
   }
-  
-  getAllFriends(){
-    
+
+  getAllFriends() {
+
     // this.profilePicture = sessionStorage.getItem('profilePicture');
     this.friendsArray = [];
-    this.id = sessionStorage.getItem('userId')
-    this.service.getAllFriends(this.id).subscribe(d=>{
-      if(d.status==200){
-        d.result.map(u=>{
+
+    this.service.getAllFriends(this.id).subscribe(d => {
+      if (d.status == 200) {
+        d.result.map(u => {
           this.friendsArray.push(u.friend);
         })
       }
-     
+
     })
   }
 
-  goToNewsFeed(){
+  goToNewsFeed() {
     this.router.navigate(['newsfeed'])
   }
 
-  goToNotifications(){
+  goToNotifications() {
     this.router.navigate(['notifications'])
   }
-  goToMyProfile(){
-    this.router.navigate(['profiles/',this.id])
+  goToMyProfile() {
+    this.router.navigate(['profiles/', this.id])
   }
-  logout(){
+  logout() {
     sessionStorage.clear();
     this.router.navigate(['']);
   }
 
-  getProfilePicture(){
-    this.service.sendPicture$.subscribe(d=> {
+  getProfilePicture() {
+    this.service.sendPicture$.subscribe(d => {
       this.profilePicture = d
     })
   }
 
-  
+  updateNotificationCount() {
+    this.notificationService.updateNotification$.subscribe(() => {
+      console.log("heyhey")
+      this.getNotificationCount();
+    })
+  }
+  getNotificationCount() {
+    this.notificationService.getAllNotificationCount(this.id)
+      .subscribe((res) => {
+        console.log(res)
+        this.notificationCount = res.result;
+      })
+  }
+
+
 }

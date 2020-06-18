@@ -36,7 +36,8 @@ export class LoginPageComponent implements OnInit {
           sessionStorage.setItem("token", res.result.token);
           sessionStorage.setItem("email", res.result.email);
           sessionStorage.setItem("username", res.result.username);
-          sessionStorage.setItem("profilePicture",res.result.profilePicture)
+          sessionStorage.setItem("profilePicture",res.result.profilePicture);
+          sessionStorage.setItem("userType",res.result.userType);
          
           
           setTimeout(() => {this.router.navigate(['newsfeed'])

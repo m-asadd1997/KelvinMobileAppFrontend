@@ -6,6 +6,7 @@ import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { PostComponent } from './post/post.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,9 @@ const routes: Routes = [
   },
   {
     path:"notifications",component:NotificationsComponent
+  },
+  {
+    path:"post",component:PostComponent
   }
 ];
 

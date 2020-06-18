@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AppSideBarComponent } from './app-side-bar/app-side-bar.component';
 import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { PostComponent } from './post/post.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ProfileComponent,
     AppSideBarComponent,
     BottomMenuComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    PostComponent
     
   ],
   imports: [
