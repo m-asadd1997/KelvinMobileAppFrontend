@@ -51,77 +51,79 @@
                 </div>
             </div>
         </div>
-    
-    <div class="section full mt-2">
-        <div class="profile-stats pl-2 pr-2">
-            <a href="#" class="item">
-                <strong>152</strong>photos
-            </a>
-            <a href="#" class="item">
-                <strong>52</strong>albums
-            </a>
-            <a href="#" class="item">
-                <strong>{{noOfFriends}}</strong>friends
-            </a>
 
-            <a href="#" class="item">
-                <strong>506</strong>following
-            </a>
-        </div>
-    </div>
+        <div class="section full mt-2">
+            <div class="profile-stats pl-2 pr-2">
+                <a href="#" class="item">
+                    <strong>152</strong>photos
+                </a>
+                <a href="#" class="item">
+                    <strong>52</strong>albums
+                </a>
+                <a href="#" class="item">
+                    <strong>{{noOfFriends}}</strong>friends
+                </a>
 
-    <div class="section mt-1 mb-2">
-        <div class="profile-info">
-            <div class="bio">
-                {{description}}
+                <a href="#" class="item">
+                    <strong>506</strong>following
+                </a>
             </div>
-            <div class="link" *ngIf="!hideRequestButtons">
+        </div>
 
-                <button type="button" class="btn btn-sm  rounded shadowed mr-1 mb-1" data-toggle="modal"
-                    data-target="#ModalForm" style="width: 50px;height: 25px;margin-top: 2%;">
-                    <ion-icon style="font-size: 20px;" src="assets/edit1.svg"></ion-icon>
-                </button>
+        <div class="section mt-1 mb-2">
+            <div class="profile-info">
+                <div class="bio">
+                    {{description}}
+                </div>
+                <div class="link" *ngIf="!hideRequestButtons">
 
-                <div class="modal fade modalbox" id="ModalForm" data-backdrop="static" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                    <button type="button" class="btn btn-sm  rounded shadowed mr-1 mb-1" data-toggle="modal"
+                        data-target="#ModalForm" style="width: 50px;height: 25px;margin-top: 2%;">
+                        <ion-icon style="font-size: 20px;" src="assets/edit1.svg"></ion-icon>
+                    </button>
 
-                            <div class="modal-header">
-                                <h5 class="modal-title">{{userName}}</h5>
-                                <a style="margin-left: 60%;" (click)="saveDescription()" data-dismiss="modal">Save </a>
-                                <a data-dismiss="modal"> Close</a>
+                    <div class="modal fade modalbox" id="ModalForm" data-backdrop="static" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{userName}}</h5>
+                                    <a style="margin-left: 60%;" (click)="saveDescription()" data-dismiss="modal">Save
+                                    </a>
+                                    <a data-dismiss="modal"> Close</a>
 
 
-                            </div>
-                            <div class="modal-body">
-                                <div class="login-form">
-                                    <div class="section mt-2">
-                                        <!-- <h1>Get started</h1> -->
-                                        <!-- <h4>Edit Bio</h4> -->
-                                    </div>
-                                    <div class="section mt-4 mb-5">
-                                        <form>
-                                            <div class="form-group basic">
-                                                <div class="input-wrapper">
-                                                    <label class="label" style="font-size: medium;" for="bio">Add
-                                                        Description</label>
-                                                    <textarea type="text" rows="1" class="form-control"
-                                                        name="description" id="bio"
-                                                        [(ngModel)]="description"></textarea>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="login-form">
+                                        <div class="section mt-2">
+                                            <!-- <h1>Get started</h1> -->
+                                            <!-- <h4>Edit Bio</h4> -->
+                                        </div>
+                                        <div class="section mt-4 mb-5">
+                                            <form>
+                                                <div class="form-group basic">
+                                                    <div class="input-wrapper">
+                                                        <label class="label" style="font-size: medium;" for="bio">Add
+                                                            Description</label>
+                                                        <textarea type="text" rows="1" class="form-control"
+                                                            name="description" id="bio"
+                                                            [(ngModel)]="description"></textarea>
 
+                                                    </div>
                                                 </div>
-                                            </div>
 
 
 
 
 
-                                            <!-- <div class="mt-2">
+                                                <!-- <div class="mt-2">
                                                     <button type="button" class="btn btn-primary btn-block btn-lg"
                                                         data-dismiss="modal">Close</button>
                                                 </div> -->
 
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -130,238 +132,177 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="section full">
-        <div class="wide-block transparent p-0">
-            <ul class="nav nav-tabs lined iconed" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#feed" role="tab">
-                        <ion-icon src="assets/grid.svg"></ion-icon>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#friends" role="tab">
-                        <ion-icon src="assets/group.svg"></ion-icon>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-                        <ion-icon src="assets/settings.svg"></ion-icon>
-                    </a>
-                </li>
-            </ul>
+        <div class="section full">
+            <div class="wide-block transparent p-0">
+                <ul class="nav nav-tabs lined iconed" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#feed" role="tab">
+                            <ion-icon src="assets/grid.svg"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#friends" role="tab">
+                            <ion-icon src="assets/group.svg"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+                            <ion-icon src="assets/settings.svg"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
 
-    <!-- tab content -->
-    <div class="section full mb-2">
-        <div class="tab-content">
+        <!-- tab content -->
+        <div class="section full mb-2">
+            <div class="tab-content">
 
-            <!-- feed -->
-            <div class="tab-pane fade show active" id="feed" role="tabpanel">
-                <div class="mt-2 pr-2 pl-2">
-                    <div class="row">
-                        <div class="col-4 mb-2">
-                            <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
-                        </div>
-                        <div class="col-4 mb-2">
-                            <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
-                        </div>
-                        <div class="col-4 mb-2">
-                            <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
+                <!-- feed -->
+                <div class="tab-pane fade show active" id="feed" role="tabpanel">
+                    <div class="mt-2 pr-2 pl-2">
+                        <div class="row">
+                            <div class="col-4 mb-2">
+                                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
+                            </div>
+                            <div class="col-4 mb-2">
+                                <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
+                            </div>
+                            <div class="col-4 mb-2">
+                                <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
+                            </div>
                         </div>
                     </div>
+                    <div class="pr-2 pl-2">
+                        <a href="#" class="btn btn-primary btn-block">More Photo</a>
+                    </div>
                 </div>
-                <div class="pr-2 pl-2">
-                    <a href="#" class="btn btn-primary btn-block">More Photo</a>
+                <!-- * feed -->
+
+                <!-- * friends -->
+                <div class="tab-pane fade" id="friends" role="tabpanel">
+                    <ul class="listview image-listview flush transparent pt-1">
+
+
+
+
+                        <li *ngFor="let friend of friends" data-dismiss="modal" (click)="gotoProfile(friend.id)">
+                            <a class="item">
+                                <img [src]=" friend.profilePicture
+                                ? 'data:image/jpeg;base64,' + friend.profilePicture
+                                : 'assets/img/sample/avatar/avatar10.jpg'" alt="image" class="image">
+                                <div class="in">
+                                    <div>
+                                        {{friend.name}}
+                                        <div class="text-muted">51k followers</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <!-- * feed -->
+                <!-- * friends -->
 
-            <!-- * friends -->
-            <div class="tab-pane fade" id="friends" role="tabpanel">
-                <ul class="listview image-listview flush transparent pt-1">
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Edward Lindgren
-                                    <div class="text-muted">532 followers</div>
+                <!--  bookmarks -->
+                <div class="tab-pane fade" id="bookmarks" role="tabpanel">
+                    <ul class="listview image-listview media flush transparent pt-1">
+                        <li>
+                            <a href="#" class="item">
+                                <div class="imageWrapper">
+                                    <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w64">
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        Birds
+                                        <div class="text-muted">62 photos</div>
+                                    </div>
+                                    <span class="badge badge-primary">5</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="item">
+                                <div class="imageWrapper">
+                                    <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w64">
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        Street Photos
+                                        <div class="text-muted">15 photos</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="item">
+                                <div class="imageWrapper">
+                                    <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w64">
+                                </div>
+                                <div class="in">
+                                    <div>
+                                        Dogs
+                                        <div class="text-muted">97 photos</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- * bookmarks -->
+                <!-- settings -->
+                <div class="tab-pane fade" id="settings" role="tabpanel">
+                    <ul class="listview image-listview text flush transparent pt-1">
+                        <li>
+                            <div class="item">
+                                <div class="in">
+                                    <div>
+                                        Mute
+                                        <footer>Disabled notifications from this person</footer>
+                                    </div>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1"></label>
+                                    </div>
                                 </div>
                             </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar2.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Emelda Scandroot
-                                    <div class="text-muted">120k followers</div>
+                        </li>
+                        <li>
+                            <a href="#" class="item">
+                                <div class="in">
+                                    <div class="text-danger">Block</div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar5.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Henry Bove
-                                    <div class="text-muted">920k followers</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="item">
+                                <div class="in">
+                                    <div>Report</div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar4.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Ava Gregoraci
-                                    <div class="text-muted">5092 followers</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="item">
+                                <div class="in">
+                                    <div>Share This Profile</div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar6.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Emmy Elsner
-                                    <div class="text-muted">92 followers</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="item">
+                                <div class="in">
+                                    <div>Send a Message</div>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar7.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Lisanne Viscaal
-                                    <div class="text-muted">893 followers</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <img src="assets/img/sample/avatar/avatar10.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>
-                                    Cecilia Pozo
-                                    <div class="text-muted">51k followers</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- * settings -->
             </div>
-            <!-- * friends -->
-
-            <!--  bookmarks -->
-            <div class="tab-pane fade" id="bookmarks" role="tabpanel">
-                <ul class="listview image-listview media flush transparent pt-1">
-                    <li>
-                        <a href="#" class="item">
-                            <div class="imageWrapper">
-                                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w64">
-                            </div>
-                            <div class="in">
-                                <div>
-                                    Birds
-                                    <div class="text-muted">62 photos</div>
-                                </div>
-                                <span class="badge badge-primary">5</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <div class="imageWrapper">
-                                <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w64">
-                            </div>
-                            <div class="in">
-                                <div>
-                                    Street Photos
-                                    <div class="text-muted">15 photos</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <div class="imageWrapper">
-                                <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w64">
-                            </div>
-                            <div class="in">
-                                <div>
-                                    Dogs
-                                    <div class="text-muted">97 photos</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- * bookmarks -->
-            <!-- settings -->
-            <div class="tab-pane fade" id="settings" role="tabpanel">
-                <ul class="listview image-listview text flush transparent pt-1">
-                    <li>
-                        <div class="item">
-                            <div class="in">
-                                <div>
-                                    Mute
-                                    <footer>Disabled notifications from this person</footer>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <div class="in">
-                                <div class="text-danger">Block</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <div class="in">
-                                <div>Report</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <div class="in">
-                                <div>Share This Profile</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="item">
-                            <div class="in">
-                                <div>Send a Message</div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- * settings -->
         </div>
+        <!-- * tab content -->
     </div>
-    <!-- * tab content -->
-</div>
 </div>
 
 <app-bottom-menu></app-bottom-menu>
