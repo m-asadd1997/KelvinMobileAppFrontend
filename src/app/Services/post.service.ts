@@ -25,4 +25,7 @@ export class PostService {
   getPostById(id): Observable<any> {
     return this.http.get(environment.baseUrl + "api/post/" + id);
   }
+  getAllBusinessPosts():Observable<any>{
+    return this.http.get(environment.baseUrl+"api/business-posts")
+  }
 }

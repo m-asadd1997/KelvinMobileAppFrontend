@@ -16,6 +16,7 @@ export class NewsfeedPageComponent implements OnInit {
   Images = ['assets/img/sample/photo/d1.jpg', 'assets/img/sample/photo/d2.jpg', 'assets/img/sample/photo/d3.jpg']
   id = sessionStorage.getItem("userId");
   userAds: Array<any> = [];
+  businessAds:Array<any>=[];
   @HostListener('window:resize', ['$event'])
   screenHeight=null;
   screenWidth;
@@ -25,6 +26,7 @@ export class NewsfeedPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserPosts();
+    this.getBusinessPosts();
   }
   onResize(event?) {
     this.screenHeight = window.innerHeight - 102;
@@ -40,10 +42,6 @@ goToSearch() {
   this.router.navigate(["search"])
 }
 
-// ngAfterViewInit(){
-
-//   this.toastService.showToast('here',"#toast-1");
-// }
 
 getUserPosts() {
   console.log(this.id)
@@ -53,9 +51,19 @@ getUserPosts() {
       this.userAds = response;
     })
 }
-
+getBusinessPosts(){
+  this.postService.getAllBusinessPosts()
+  .subscribe((response)=>{
+    this.businessAds=response;
+    console.log(response,"=======business")
+  })
+}
 gotoAddPreview(id) {
   this.router.navigate(['blogpost/' + id])
+}
+
+gotoUserProfile(id) {
+  this.router.navigate(['profiles/' + id])
 }
 
 }

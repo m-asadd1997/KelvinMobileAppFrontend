@@ -22,6 +22,7 @@ export class PostComponent implements OnInit {
   submitted = false;
   PostObj: Post;
   userId=sessionStorage.getItem("userId");
+  
 
   constructor(private router: Router, private formBuilder: FormBuilder, private service: PostService) {
     this.PostObj = new Post();

@@ -81,4 +81,8 @@ export class NotificationsComponent implements OnInit {
     this.friendsIdObj.userId = sessionStorage.getItem('userId');
     this.friendsIdObj.friendId = id;
   }
+
+  gotoNewsFeed(){
+    this.router.navigate(['newsfeed'])
+  }
 }

@@ -21,11 +21,12 @@
 <!-- App Capsule -->
 <div id="appCapsule">
 
+    <div [ngStyle]="screenHeight?{height:screenHeight+'px',overflow:'scroll'}:{}">
     <div class="section full mt-2 mb-2">
         <div class="section-title">Add Post</div>
         <div class="wide-block pb-2 pt-2">
 
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" [ngStyle]="{height:screenHeight+'px',overflow:'scroll'}">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
                 <div class="custom-file-upload">
                     <input formControlName="image" (change)="onImageChange($event)" type="file" id="fileuploadInput" accept=".png, .jpg, .jpeg">
                     <label for="fileuploadInput">
@@ -42,7 +43,7 @@
 
 
 
-                <div *ngIf="userType=='Admin'" style="margin-top: 5px;" class="form-group boxed">
+                <div *ngIf="userType=='Business User'" style="margin-top: 5px;" class="form-group boxed">
                     <div class="input-wrapper">
                         <!-- <label class="label" for="name5">Url</label> -->
                         <input formControlName="url" type="text" class="form-control" id="name5" placeholder="Enter Ad url">
@@ -70,6 +71,7 @@
 
         </div>
     </div>
+</div>
 </div>
 
 
