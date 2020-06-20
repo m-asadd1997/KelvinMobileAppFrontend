@@ -7,6 +7,7 @@ import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PostComponent } from './post/post.component';
+import { BlogpostComponent } from './blogpost/blogpost.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,9 @@ const routes: Routes = [
   },
   {
     path:"post",component:PostComponent
+  },
+  {
+    path:'blogpost/:id' ,component:BlogpostComponent
   }
 ];
 

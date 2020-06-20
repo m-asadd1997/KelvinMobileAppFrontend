@@ -15,8 +15,7 @@ export class NotificationService {
   updateNotification$ = this.sendNotification.asObservable();
 
   updateNotification() {
-    // debugger;
-    // console.log("hey called")
+  
     this.sendNotification.next();
   }
   getAllNotificationCount(id): Observable<any> {
