@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainService } from '../Services/main.service';
 import { FriendsIds } from './friendsIds';
@@ -30,7 +30,13 @@ export class ProfileComponent implements OnInit {
   noOfFriends;
   picture;
   showCloseOnAction: boolean = true;
-  constructor(private router: Router,private notificationService:NotificationService,private activateRoute:ActivatedRoute,private service: MainService,private toastService: ToastUtilService) { }
+  @HostListener('window:resize', ['$event'])
+  screenHeight;
+  screenWidth;
+
+  constructor(private router: Router,private notificationService:NotificationService,private activateRoute:ActivatedRoute,private service: MainService,private toastService: ToastUtilService) { 
+    this.onResize();
+  }
 
   ngOnInit(): void {
     this.id = this.activateRoute.snapshot.params['id'];
@@ -39,7 +45,12 @@ export class ProfileComponent implements OnInit {
     this.getProfile();
     this.checkIfLoggedInUser();
   }
+  onResize(event?) {
+    this.screenHeight = window.innerHeight - 102;
+    this.screenWidth = window.innerWidth;
 
+    console.log(this.screenHeight)
+  }
   checkIfLoggedInUser(){
     if(this.id == this.loggedInUserId){
       this.hideRequestButtons = false;

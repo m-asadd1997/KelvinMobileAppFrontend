@@ -23,8 +23,7 @@
                     [src]="postObj.image?'data:image/jpeg;base64,'+postObj.image:'assets/img/sample/photo/wide1.jpg'"
                     alt="image" class="imaged square w-100">
             </div>
-            <!-- <h1 class="title">How to take Landscape Photos in 10 Easy Ways</h1> -->
-
+           
             <div class="post-header">
                 <div>
                     <a (click)="gotoUserProfile()">
@@ -37,6 +36,9 @@
                 {{dateFormate(postObj.date)}}
             </div>
             <div class="post-body">
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <a *ngIf="postObj.url" [attr.href]="'http://'+postObj.url"   class="title">{{postObj.url}}</a>
+                </div>
                 <p>
 
                     {{isCollapsed?postObj.description.substring(0,200)+'...':postObj.description}}

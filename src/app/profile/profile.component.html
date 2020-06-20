@@ -1,25 +1,25 @@
-    <!-- App Header -->
-    
-    <div class="appHeader bg-primary text-light" >
-        <div class="left">
-            <a (click)="goBack()" class="headerButton goBack">
-                <ion-icon src="assets/left-arrow.svg"></ion-icon>
-            </a>
-        </div>
-        <div class="pageTitle">{{userName}}</div>
-        <div class="right">
-            <a href="javascript:;" class="headerButton">
-                <ion-icon src="assets/email.svg"></ion-icon>
-            </a>
-           
-        </div>
+<!-- App Header -->
+
+<div class="appHeader bg-primary text-light">
+    <div class="left">
+        <a (click)="goBack()" class="headerButton goBack">
+            <ion-icon src="assets/left-arrow.svg"></ion-icon>
+        </a>
     </div>
-    <!-- * App Header -->
+    <div class="pageTitle">{{userName}}</div>
+    <div class="right">
+        <a href="javascript:;" class="headerButton">
+            <ion-icon src="assets/email.svg"></ion-icon>
+        </a>
 
-    <!-- App Capsule -->
-    <div id="appCapsule" >
+    </div>
+</div>
+<!-- * App Header -->
 
-        <div >
+<!-- App Capsule -->
+<div id="appCapsule">
+
+    <div [ngStyle]="screenHeight?{'height':screenHeight+'px','overflow':'scroll'}:{}">
         <div class="section mt-2">
             <div class="profile-head">
                 <div class="avatar" data-toggle="modal" data-target="#actionSheet" (click)="showClose()">
@@ -27,115 +27,101 @@
                     profileObj.profilePicture != null
                       ? 'data:image/jpeg;base64,' + profileObj.profilePicture
                       : 'assets/user.png'
-                  "
-                   alt="avatar" 
-                   class="imaged w64 rounded"
-                   >
+                  " alt="avatar" class="imaged w64 rounded">
                 </div>
                 <div class="in">
                     <h3 class="name">{{userName}}</h3>
                     <div *ngIf="hideRequestButtons">
-                    <div class="subtext" *ngIf="!notificationBtns && isFriends">
-                        <button type="button" class="btn btn-outline-success btn-sm rounded shadowed mr-1 mb-1" data-toggle="modal" data-target="#DialogBasic">friends</button>
+                        <div class="subtext" *ngIf="!notificationBtns && isFriends">
+                            <button type="button" class="btn btn-outline-success btn-sm rounded shadowed mr-1 mb-1"
+                                data-toggle="modal" data-target="#DialogBasic">friends</button>
+                        </div>
+                        <div class="subtext" *ngIf="!notificationBtns && !isFriends">
+                            <button type="button" [class]="btnColor"
+                                (click)="friendsButtonClick()">{{friendStatus}}</button>
+                        </div>
+                        <div class="subtext" *ngIf="notificationBtns && !isFriends">
+                            <button type="button" class="btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1"
+                                (click)="acceptRequest()">Accept</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm rounded shadowed mr-1 mb-1"
+                                (click)="deleteRequest()">Delete</button>
+                        </div>
                     </div>
-                    <div class="subtext" *ngIf="!notificationBtns && !isFriends">
-                        <button type="button" [class]="btnColor" (click)="friendsButtonClick()">{{friendStatus}}</button>
-                    </div>
-                    <div class="subtext" *ngIf="notificationBtns && !isFriends">
-                        <button type="button" class="btn btn-outline-primary btn-sm rounded shadowed mr-1 mb-1" (click)="acceptRequest()">Accept</button>
-                        <button  type="button" class="btn btn-outline-danger btn-sm rounded shadowed mr-1 mb-1" (click)="deleteRequest()">Delete</button>
-                    </div>
-                </div>
-                    
+
                 </div>
             </div>
+        </div>
+    
+    <div class="section full mt-2">
+        <div class="profile-stats pl-2 pr-2">
+            <a href="#" class="item">
+                <strong>152</strong>photos
+            </a>
+            <a href="#" class="item">
+                <strong>52</strong>albums
+            </a>
+            <a href="#" class="item">
+                <strong>{{noOfFriends}}</strong>friends
+            </a>
+
+            <a href="#" class="item">
+                <strong>506</strong>following
+            </a>
         </div>
     </div>
-        <div class="section full mt-2">
-            <div class="profile-stats pl-2 pr-2">
-                <a href="#" class="item">
-                    <strong>152</strong>photos
-                </a>
-                <a href="#" class="item">
-                    <strong>52</strong>albums
-                </a>
-                <a href="#" class="item">
-                    <strong>{{noOfFriends}}</strong>friends
-                </a>
 
-                <a href="#" class="item">
-                    <strong>506</strong>following
-                </a>
+    <div class="section mt-1 mb-2">
+        <div class="profile-info">
+            <div class="bio">
+                {{description}}
             </div>
-        </div>
+            <div class="link" *ngIf="!hideRequestButtons">
 
-        <div class="section mt-1 mb-2">
-            <div class="profile-info">
-                <div class="bio">
-                   {{description}}
-                </div>
-                <div class="link" *ngIf="!hideRequestButtons">
-                    <!-- <button type="button" class="btn btn-sm btn-outline-primary rounded shadowed mr-1 mb-1" *ngIf="!descriptionSection" (click)="toggleDescriptionSection()">
-                        <ion-icon src="assets/edit1.svg"></ion-icon> Add Description
-                    </button> -->
-                    <button type="button" class="btn btn-sm btn-light rounded shadowed mr-1 mb-1" data-toggle="modal" data-target="#ModalForm" style="width: 50px;height: 25px;margin-top: 2%;">
-                        <ion-icon style="font-size: 20px;" src="assets/edit1.svg"></ion-icon>
-                    </button>
-                    <!-- <div class="form-group basic" *ngIf="descriptionSection">
-                        <div class="input-wrapper">
-                            <label class="label" for="decription">Add Description</label>
-                            <textarea id="decription" rows="1" class="form-control"></textarea>
-                        </div>
-                        <div style="margin-top: 2%;">
-                        <button type="button" class="btn btn-sm btn-outline-success rounded shadowed mr-1 mb-1" style="widows: 20px;height: 20px;">
-                            save
-                            
-                        </button>
-                        <button (click)="toggleDescriptionSection()" type="button" class="btn btn-sm btn-outline-danger rounded shadowed mr-1 mb-1" style="height: 20px;">
-                           
-                            cancel
-                        </button>
-                    </div>
-                    </div> -->
-                    <div class="modal fade modalbox" id="ModalForm" data-backdrop="static" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                
-                                <div class="modal-header">
-                                    <h5 class="modal-title">{{userName}}</h5>
-                                    <a  style="margin-left: 60%;" (click)="saveDescription()" data-dismiss="modal">Save</a>
-                                    <a  data-dismiss="modal">Close</a>
+                <button type="button" class="btn btn-sm  rounded shadowed mr-1 mb-1" data-toggle="modal"
+                    data-target="#ModalForm" style="width: 50px;height: 25px;margin-top: 2%;">
+                    <ion-icon style="font-size: 20px;" src="assets/edit1.svg"></ion-icon>
+                </button>
+
+                <div class="modal fade modalbox" id="ModalForm" data-backdrop="static" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{userName}}</h5>
+                                <a style="margin-left: 60%;" (click)="saveDescription()" data-dismiss="modal">Save </a>
+                                <a data-dismiss="modal"> Close</a>
 
 
-                                </div>
-                                <div class="modal-body">
-                                    <div class="login-form">
-                                        <div class="section mt-2">
-                                            <!-- <h1>Get started</h1> -->
-                                            <!-- <h4>Edit Bio</h4> -->
-                                        </div>
-                                        <div class="section mt-4 mb-5">
-                                            <form>
-                                                <div class="form-group basic">
-                                                    <div class="input-wrapper">
-                                                        <label class="label" style="font-size: medium;" for="bio">Add Description</label>
-                                                        <textarea type="text" rows="1" class="form-control" name="description" id="bio" [(ngModel)]="description"
-                                                            ></textarea>
-                                                       
-                                                    </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="login-form">
+                                    <div class="section mt-2">
+                                        <!-- <h1>Get started</h1> -->
+                                        <!-- <h4>Edit Bio</h4> -->
+                                    </div>
+                                    <div class="section mt-4 mb-5">
+                                        <form>
+                                            <div class="form-group basic">
+                                                <div class="input-wrapper">
+                                                    <label class="label" style="font-size: medium;" for="bio">Add
+                                                        Description</label>
+                                                    <textarea type="text" rows="1" class="form-control"
+                                                        name="description" id="bio"
+                                                        [(ngModel)]="description"></textarea>
+
                                                 </div>
-            
-                                               
-            
-                                              
-                                                
-                                                <!-- <div class="mt-2">
+                                            </div>
+
+
+
+
+
+                                            <!-- <div class="mt-2">
                                                     <button type="button" class="btn btn-primary btn-block btn-lg"
                                                         data-dismiss="modal">Close</button>
                                                 </div> -->
-            
-                                            </form>
-                                        </div>
+
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -144,288 +130,289 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="section full">
-            <div class="wide-block transparent p-0">
-                <ul class="nav nav-tabs lined iconed" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#feed" role="tab">
-                            <ion-icon src="assets/grid.svg"></ion-icon>
+    <div class="section full">
+        <div class="wide-block transparent p-0">
+            <ul class="nav nav-tabs lined iconed" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#feed" role="tab">
+                        <ion-icon src="assets/grid.svg"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#friends" role="tab">
+                        <ion-icon src="assets/group.svg"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+                        <ion-icon src="assets/settings.svg"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- tab content -->
+    <div class="section full mb-2">
+        <div class="tab-content">
+
+            <!-- feed -->
+            <div class="tab-pane fade show active" id="feed" role="tabpanel">
+                <div class="mt-2 pr-2 pl-2">
+                    <div class="row">
+                        <div class="col-4 mb-2">
+                            <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
+                        </div>
+                        <div class="col-4 mb-2">
+                            <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
+                        </div>
+                        <div class="col-4 mb-2">
+                            <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
+                        </div>
+                    </div>
+                </div>
+                <div class="pr-2 pl-2">
+                    <a href="#" class="btn btn-primary btn-block">More Photo</a>
+                </div>
+            </div>
+            <!-- * feed -->
+
+            <!-- * friends -->
+            <div class="tab-pane fade" id="friends" role="tabpanel">
+                <ul class="listview image-listview flush transparent pt-1">
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Edward Lindgren
+                                    <div class="text-muted">532 followers</div>
+                                </div>
+                            </div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#friends" role="tab">
-                            <ion-icon src="assets/group.svg"></ion-icon>
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar2.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Emelda Scandroot
+                                    <div class="text-muted">120k followers</div>
+                                </div>
+                            </div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-                             <ion-icon src="assets/settings.svg"></ion-icon> 
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar5.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Henry Bove
+                                    <div class="text-muted">920k followers</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar4.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Ava Gregoraci
+                                    <div class="text-muted">5092 followers</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar6.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Emmy Elsner
+                                    <div class="text-muted">92 followers</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar7.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Lisanne Viscaal
+                                    <div class="text-muted">893 followers</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <img src="assets/img/sample/avatar/avatar10.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    Cecilia Pozo
+                                    <div class="text-muted">51k followers</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- * friends -->
+
+            <!--  bookmarks -->
+            <div class="tab-pane fade" id="bookmarks" role="tabpanel">
+                <ul class="listview image-listview media flush transparent pt-1">
+                    <li>
+                        <a href="#" class="item">
+                            <div class="imageWrapper">
+                                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w64">
+                            </div>
+                            <div class="in">
+                                <div>
+                                    Birds
+                                    <div class="text-muted">62 photos</div>
+                                </div>
+                                <span class="badge badge-primary">5</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="imageWrapper">
+                                <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w64">
+                            </div>
+                            <div class="in">
+                                <div>
+                                    Street Photos
+                                    <div class="text-muted">15 photos</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="imageWrapper">
+                                <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w64">
+                            </div>
+                            <div class="in">
+                                <div>
+                                    Dogs
+                                    <div class="text-muted">97 photos</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- * bookmarks -->
+            <!-- settings -->
+            <div class="tab-pane fade" id="settings" role="tabpanel">
+                <ul class="listview image-listview text flush transparent pt-1">
+                    <li>
+                        <div class="item">
+                            <div class="in">
+                                <div>
+                                    Mute
+                                    <footer>Disabled notifications from this person</footer>
+                                </div>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                    <label class="custom-control-label" for="customSwitch1"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="in">
+                                <div class="text-danger">Block</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="in">
+                                <div>Report</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="in">
+                                <div>Share This Profile</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item">
+                            <div class="in">
+                                <div>Send a Message</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- * settings -->
+        </div>
+    </div>
+    <!-- * tab content -->
+</div>
+</div>
+
+<app-bottom-menu></app-bottom-menu>
+<div class="modal fade dialogbox" id="DialogBasic" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Remove Friend?</h5>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="#" class="btn btn-text-secondary" data-dismiss="modal">No</a>
+                    <a (click)="deleteRequest()" class="btn btn-text-primary" data-dismiss="modal">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade action-sheet" id="actionSheet" tabindex="-1" role="dialog" *ngIf="!hideRequestButtons">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Profile Picture</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="action-button-list">
+                    <li>
+                        <label for="file" class="btn btn-list text-primary">
+                            <span>Select Picture
+
+                            </span>
+                            <input type="file" (change)="onImageChange($event)" id="file" style="display: none"
+                                name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
+
+                        </label>
+                    </li>
+
+                    <li class="action-divider"></li>
+                    <li *ngIf="!showCloseOnAction">
+                        <a (click)="saveProfilePicture()" class="btn btn-list text-primary" data-dismiss="modal">
+                            <span>Save</span>
+                        </a>
+                    </li>
+                    <li *ngIf="showCloseOnAction">
+                        <a class="btn btn-list text-danger" data-dismiss="modal">
+                            <span>Cancel</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-
-
-        <!-- tab content -->
-        <div class="section full mb-2">
-            <div class="tab-content">
-
-                <!-- feed -->
-                <div class="tab-pane fade show active" id="feed" role="tabpanel">
-                    <div class="mt-2 pr-2 pl-2">
-                        <div class="row">
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
-                            </div>
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pr-2 pl-2">
-                        <a href="#" class="btn btn-primary btn-block">More Photo</a>
-                    </div>
-                </div>
-                <!-- * feed -->
-
-                <!-- * friends -->
-                <div class="tab-pane fade" id="friends" role="tabpanel">
-                    <ul class="listview image-listview flush transparent pt-1">
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Edward Lindgren
-                                        <div class="text-muted">532 followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar2.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Emelda Scandroot
-                                        <div class="text-muted">120k followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar5.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Henry Bove
-                                        <div class="text-muted">920k followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar4.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Ava Gregoraci
-                                        <div class="text-muted">5092 followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar6.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Emmy Elsner
-                                        <div class="text-muted">92 followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar7.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Lisanne Viscaal
-                                        <div class="text-muted">893 followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <img src="assets/img/sample/avatar/avatar10.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>
-                                        Cecilia Pozo
-                                        <div class="text-muted">51k followers</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- * friends -->
-
-                <!--  bookmarks -->
-                <div class="tab-pane fade" id="bookmarks" role="tabpanel">
-                    <ul class="listview image-listview media flush transparent pt-1">
-                        <li>
-                            <a href="#" class="item">
-                                <div class="imageWrapper">
-                                    <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w64">
-                                </div>
-                                <div class="in">
-                                    <div>
-                                        Birds
-                                        <div class="text-muted">62 photos</div>
-                                    </div>
-                                    <span class="badge badge-primary">5</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <div class="imageWrapper">
-                                    <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w64">
-                                </div>
-                                <div class="in">
-                                    <div>
-                                        Street Photos
-                                        <div class="text-muted">15 photos</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <div class="imageWrapper">
-                                    <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w64">
-                                </div>
-                                <div class="in">
-                                    <div>
-                                        Dogs
-                                        <div class="text-muted">97 photos</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- * bookmarks -->
-                <!-- settings -->
-                <div class="tab-pane fade" id="settings" role="tabpanel">
-                    <ul class="listview image-listview text flush transparent pt-1">
-                        <li>
-                            <div class="item">
-                                <div class="in">
-                                    <div>
-                                        Mute
-                                        <footer>Disabled notifications from this person</footer>
-                                    </div>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <div class="in">
-                                    <div class="text-danger">Block</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <div class="in">
-                                    <div>Report</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <div class="in">
-                                    <div>Share This Profile</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="item">
-                                <div class="in">
-                                    <div>Send a Message</div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- * settings -->
-            </div>
-        </div>
-        <!-- * tab content -->
-
     </div>
-
-    <app-bottom-menu></app-bottom-menu>
-    <div class="modal fade dialogbox" id="DialogBasic" data-backdrop="static" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Remove Friend?</h5>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-inline">
-                        <a href="#" class="btn btn-text-secondary" data-dismiss="modal">No</a>
-                        <a (click)="deleteRequest()" class="btn btn-text-primary" data-dismiss="modal">Yes</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade action-sheet" id="actionSheet" tabindex="-1" role="dialog" *ngIf="!hideRequestButtons">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Profile Picture</h5>
-                </div>
-                <div class="modal-body">
-                    <ul class="action-button-list">
-                        <li>
-                            <label for="file"  class="btn btn-list text-primary" >
-                                <span>Select Picture
-                                    
-                                </span>
-                                <input type="file" (change)="onImageChange($event)" id="file" style="display: none" name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
-                                
-                            </label>
-                        </li>
-                       
-                        <li class="action-divider"></li>
-                        <li *ngIf="!showCloseOnAction">
-                            <a (click)="saveProfilePicture()" class="btn btn-list text-primary" data-dismiss="modal" >
-                                <span>Save</span>
-                            </a>
-                        </li>
-                        <li *ngIf="showCloseOnAction">
-                            <a  class="btn btn-list text-danger" data-dismiss="modal" >
-                                <span>Cancel</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
- 
+</div>

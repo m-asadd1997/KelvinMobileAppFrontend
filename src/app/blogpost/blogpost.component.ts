@@ -56,4 +56,7 @@ export class BlogpostComponent implements OnInit {
     return moment(date).format('MMMM Do YYYY');
   }
 
+
+  
+
 }
