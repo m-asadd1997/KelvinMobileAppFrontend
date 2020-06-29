@@ -99,7 +99,7 @@
                 </div>
                 <div>
                 <ul class="listview image-listview flush transparent no-line">
-                    <li  *ngFor="let user of friendsArray" [routerLink]="['/profiles/'+user.id]" data-dismiss="modal">
+                    <li  *ngFor="let user of friendsArray" (click)="gotoChatroom(user.id)" data-dismiss="modal">
                         <a  class="item">
                             <img [src]="
                             user.profilePicture != null

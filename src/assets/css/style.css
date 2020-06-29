@@ -7247,3 +7247,8 @@ body.dark-mode-active .profile-stats .item strong {
   background-color: black;
   color: white;
 } */
+
+
+.chatFooter .form-group{
+  width: calc(100% - 50px);
+}

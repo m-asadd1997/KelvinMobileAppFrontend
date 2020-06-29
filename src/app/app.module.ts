@@ -21,6 +21,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { PostComponent } from './post/post.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { ViewImageComponent } from './view-image/view-image.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -37,7 +38,8 @@ import { ViewImageComponent } from './view-image/view-image.component';
     NotificationsComponent,
     PostComponent,
     BlogpostComponent,
-    ViewImageComponent
+    ViewImageComponent,
+    ChatComponent
     
   ],
   imports: [

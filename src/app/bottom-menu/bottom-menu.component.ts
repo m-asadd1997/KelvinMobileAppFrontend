@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from '../Services/main.service';
 import { NotificationService } from '../Services/notification.service';
+import { ChatService } from '../Services/chat.service';
 
 @Component({
   selector: 'app-bottom-menu',
@@ -18,7 +19,8 @@ export class BottomMenuComponent implements OnInit {
   notificationCount: number = 0
   // @Input("noOfNotifications") noOfNotifications:number;
 
-  constructor(private router: Router, private service: MainService, private notificationService: NotificationService) { }
+  constructor(private router: Router, private service: MainService,
+    private notificationService: NotificationService, private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.id = sessionStorage.getItem('userId');
@@ -54,6 +56,7 @@ export class BottomMenuComponent implements OnInit {
 
     this.service.getAllFriends(this.id).subscribe(d => {
       if (d.status == 200) {
+        console.log(d)
         d.result.map(u => {
           this.friendsArray.push(u.friend);
         })
@@ -97,5 +100,10 @@ export class BottomMenuComponent implements OnInit {
       })
   }
 
-
+  gotoChatroom(friendId) {
+    this.chatService.initiateChat(this.id, friendId)
+      .subscribe((chatroom) => {
+        this.router.navigate([`chat/${chatroom}/${friendId}`])
+      })
+  }
 }
