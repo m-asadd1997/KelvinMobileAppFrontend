@@ -27,7 +27,7 @@
                     profileObj.profilePicture != null
                       ? 'data:image/jpeg;base64,' + profileObj.profilePicture
                       : 'assets/user.png'
-                  " alt="avatar" class="imaged w64 rounded">
+                  " alt="avatar" class="imaged w64 rounded myImg">
                 </div>
                 <div class="in">
                     <h3 class="name">{{userName}}</h3>
@@ -132,7 +132,7 @@
                 </div>
             </div>
         </div>
-
+        <div *ngIf="showHideprivateProfile || !hideRequestButtons">
         <div class="section full">
             <div class="wide-block transparent p-0">
                 <ul class="nav nav-tabs lined iconed" role="tablist">
@@ -164,31 +164,44 @@
                 <div class="tab-pane fade show active" id="feed" role="tabpanel">
                     <div class="mt-2 pr-2 pl-2">
                         <div class="row">
-                            <div class="col-4 mb-2">
-                                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w-100">
+                            <div *ngFor="let image of profileGalleryArr" class="col-4 mb-2" >
+                                <img [src]="image.galleryImage" alt="image" class="imaged w-100 galleryImg"  (click)="showPicture(image.id)">
+
+                                
                             </div>
-                            <div class="col-4 mb-2">
+                            <!-- <div class="col-4 mb-2">
                                 <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w-100">
                             </div>
                             <div class="col-4 mb-2">
                                 <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w-100">
-                            </div>
+                            </div> -->
+                            
                         </div>
                     </div>
-                    <div class="pr-2 pl-2">
-                        <a href="#" class="btn btn-primary btn-block">More Photo</a>
+                    <div class="pr-2 pl-2" *ngIf="!hideRequestButtons">
+                        <!-- <button class="btn btn-primary btn-block">More Photo                         
+                        </button> -->
+                        <label for="file" class="btn btn-primary btn-block">
+                            <span>Add Picture
+
+                            </span>
+                            <input type="file" (change)="handleCategoryBanner($event.target.files)" id="file" style="display: none" (click)="onAddPictureClick()"
+                            name="image" accept="image/gif,image/jpeg,image/jpg,image/png" data-toggle="modal" data-target="#DialogImage">
+
+                        </label>
                     </div>
                 </div>
                 <!-- * feed -->
 
                 <!-- * friends -->
-                <div class="tab-pane fade" id="friends" role="tabpanel">
-                    <ul class="listview image-listview flush transparent pt-1">
+                
+                <div class="tab-pane fade" id="friends" role="tabpanel" >
+                    <ul class="listview image-listview flush transparent pt-1" >
 
 
 
 
-                        <li *ngFor="let friend of friends" data-dismiss="modal" (click)="gotoProfile(friend.id)">
+                        <li *ngFor="let friend of friendsArray" data-dismiss="modal" (click)="gotoProfile(friend.id)">
                             <a class="item">
                                 <img [src]=" friend.profilePicture
                                 ? 'data:image/jpeg;base64,' + friend.profilePicture
@@ -196,13 +209,14 @@
                                 <div class="in">
                                     <div>
                                         {{friend.name}}
-                                        <div class="text-muted">51k followers</div>
+                                        <!-- <div class="text-muted">51k followers</div> -->
                                     </div>
                                 </div>
                             </a>
                         </li>
                     </ul>
                 </div>
+            
                 <!-- * friends -->
 
                 <!--  bookmarks -->
@@ -304,6 +318,7 @@
         <!-- * tab content -->
     </div>
 </div>
+</div>
 
 <app-bottom-menu></app-bottom-menu>
 <div class="modal fade dialogbox" id="DialogBasic" data-backdrop="static" tabindex="-1" role="dialog">
@@ -321,7 +336,7 @@
         </div>
     </div>
 </div>
-
+<!-- FOR PROFILE PICTURE UPLOAD -->
 <div class="modal fade action-sheet" id="actionSheet" tabindex="-1" role="dialog" *ngIf="!hideRequestButtons">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -331,12 +346,12 @@
             <div class="modal-body">
                 <ul class="action-button-list">
                     <li>
-                        <label for="file" class="btn btn-list text-primary">
+                        <label for="file1" class="btn btn-list text-primary">
                             <span>Select Picture
 
                             </span>
-                            <input type="file" (change)="onImageChange($event)" id="file" style="display: none"
-                                name="image" accept="image/gif,image/jpeg,image/jpg,image/png">
+                            <input type="file" (change)="onImageChange($event)" id="file1" style="display: none"
+                                name="image1" accept="image/gif,image/jpeg,image/jpg,image/png">
 
                         </label>
                     </li>
@@ -356,4 +371,30 @@
             </div>
         </div>
     </div>
+</div>
+<!-- FOR GALLERY IMAGES UPLOAD -->
+<div class="modal fade dialogbox" id="DialogImage" data-backdrop="static" tabindex="-1" role="dialog" *ngIf="!hideRequestButtons">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+            <img [hidden]="loaderOnImageDialog || !showDialogOnAddPicture" [src]="imgURL" alt="image" class="img-fluid">
+        
+        <!-- <div *ngIf="loaderOnImageDialog" class="spinner-grow text-primary" role="status"> -->
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a data-dismiss="modal" class="btn btn-text-danger" data-dismiss="modal">Cancel</a>
+                    <a data-dismiss="modal" (click)="uploadPicture()" class="btn btn-text-primary">Upload</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TOAST -->
+<div id="toast-9" class="toast-box toast-center">
+    <div class="in">
+        <div class="text">
+            Centered Toast
+        </div>
+    </div>
+    <!-- <button type="button" class="btn btn-sm btn-text-light close-button">CLOSE</button> -->
 </div>

@@ -20,6 +20,7 @@ import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PostComponent } from './post/post.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
+import { ViewImageComponent } from './view-image/view-image.component';
 
 
 
@@ -35,7 +36,8 @@ import { BlogpostComponent } from './blogpost/blogpost.component';
     BottomMenuComponent,
     NotificationsComponent,
     PostComponent,
-    BlogpostComponent
+    BlogpostComponent,
+    ViewImageComponent
     
   ],
   imports: [

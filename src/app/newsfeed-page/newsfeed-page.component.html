@@ -67,11 +67,11 @@
                 ad.userProfilePicture
                   ? 'data:image/jpeg;base64,' +  ad.userProfilePicture
                   : 'assets/user.png'
-              " alt="image" class="imaged rounded">
+              " alt="image" class="imaged rounded userImg">
 
             <strong style="font-size:12px">{{ad.username}}</strong>
           </div>
-          <img style="height: 200px;" [src]="ad.image?'data:image/jpeg;base64,'+ad.image:null" class="card-img-top"
+          <img style="height: 250px;" [src]="ad.image?'data:image/jpeg;base64,'+ad.image:null" class="card-img-top postImg"
             alt="image">
           <div class="card-body">
             <p class="card-text">

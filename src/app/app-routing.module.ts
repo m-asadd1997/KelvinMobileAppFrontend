@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PostComponent } from './post/post.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
+import { ViewImageComponent } from './view-image/view-image.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,8 @@ const routes: Routes = [
   },
   {
     path:'blogpost/:id' ,component:BlogpostComponent
+  },{
+    path:'viewimage/:id',component:ViewImageComponent
   }
 ];
 

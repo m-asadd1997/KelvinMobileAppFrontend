@@ -231,3 +231,17 @@
     width: calc(100% + 16px);
     margin-left: -16px;
   }
+
+  .userImg {
+    display: block;
+    max-width:35px;
+    max-height:35px;
+    width: 35px;
+    height: 35px;
+  }
+
+  @media screen and (min-width: 500px){
+    .postImg{
+        height: 500px !important;
+    }
+}

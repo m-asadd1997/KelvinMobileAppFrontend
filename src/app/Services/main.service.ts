@@ -61,5 +61,20 @@ export class MainService {
     return this.http.post(environment.baseUrl+"token/picture",obj)
   }
 
+  saveGalleryImage(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/gallery/",obj);
+  }
+
+  getAllImages(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/gallery/"+id);
+  }
+
+  getImageById(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/gallery/singleimage/"+id);
+  }
+
+  deleteGalleryImage(id):Observable<any>{
+    return this.http.delete(environment.baseUrl+"api/gallery/"+id);
+  }
   
 }
