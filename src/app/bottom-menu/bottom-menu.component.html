@@ -109,6 +109,8 @@
                             <div class="in">
                                 <div>{{user.name}}</div>
                             </div>
+                           
+                            <span *ngIf="user.sender!=id && user.seen==false" class="badge badge-danger badge-empty"></span>
                         </a>
                     </li>
                 </ul>

@@ -7,6 +7,7 @@ import { ToastUtilService } from '../Services/toast-util.service';
 import { NotificationService } from '../Services/notification.service';
 import { ProfileGallery } from './gallery';
 import * as $ from 'jquery';
+import { ChatService } from '../Services/chat.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class ProfileComponent implements OnInit {
   friendsArray = [];
   showCloseOnAction: boolean = true;
   @HostListener('window:resize', ['$event'])
-  screenHeight ;
+  screenHeight;
   screenWidth;
   mySubscription;
   profileGalleryObj: ProfileGallery = new ProfileGallery();
@@ -46,7 +47,8 @@ export class ProfileComponent implements OnInit {
   profileGalleryArr = [];
   loaderOnImageDialog: any;
   showHideprivateProfile = false;
-  constructor(private router: Router, private notificationService: NotificationService, private activateRoute: ActivatedRoute, private service: MainService, private toastService: ToastUtilService) {
+  constructor(private router: Router, private notificationService: NotificationService,
+    private activateRoute: ActivatedRoute, private service: MainService, private chatService: ChatService, private toastService: ToastUtilService) {
     this.onResize();
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -90,7 +92,7 @@ export class ProfileComponent implements OnInit {
     if (this.id) {
       this.service.getUserById(this.id).subscribe(d => {
         if (d.status == 200) {
-          
+
           this.updateButton(d.message);
         }
         else {
@@ -107,7 +109,7 @@ export class ProfileComponent implements OnInit {
       this.service.getUserById(this.id).subscribe(d => {
         if (d.status == 200) {
 
-          
+
           this.userName = d.result.name;
           this.description = d.result.description;
           this.profileObj.profilePicture = d.result.profilePicture;
@@ -145,11 +147,11 @@ export class ProfileComponent implements OnInit {
     }
     else if (status === "pendingN") {
       this.notificationBtns = true;
-      
+
     }
     else {
       this.changeBtnToFriends()
-      
+
     }
   }
 
@@ -242,7 +244,7 @@ export class ProfileComponent implements OnInit {
     this.profileObj.description = this.description;
     this.service.saveDescription(this.profileObj).subscribe(d => {
       if (d.status == 200) {
-        this.toastService.showToast("Description updated","#toast-9")
+        this.toastService.showToast("Description updated", "#toast-9")
         this.description = d.result.description;
       }
       else {
@@ -291,13 +293,13 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfilePicture() {
-    
+
     if (this.profileObj.profilePicture != null) {
       this.service.saveProfilePicture(this.profileObj).subscribe(d => {
         if (d.status == 200) {
 
           this.service.sendPicture(this.profileObj.profilePicture);
-           this.toastService.showToast("Profile picture updated","#toast-9")
+          this.toastService.showToast("Profile picture updated", "#toast-9")
           sessionStorage.setItem("profilePicture", this.profileObj.profilePicture)
         }
       })
@@ -306,26 +308,26 @@ export class ProfileComponent implements OnInit {
 
   showClose() {
     this.showCloseOnAction = true;
-   
+
   }
 
-  handleCategoryBanner(file:FileList){
-    
-    this.profileGalleryObj.galleryImage=file[0];
+  handleCategoryBanner(file: FileList) {
+
+    this.profileGalleryObj.galleryImage = file[0];
     this.formData = new FormData();
-    console.log(typeof(file[0]));
-    
-    
+    console.log(typeof (file[0]));
+
+
     this.showDialogOnAddPicture = true;
     this.preview(file)
     console.log(this.profileGalleryObj.galleryImage)
-    
+
   }
 
   preview(files) {
     if (files.length === 0)
       return;
-  
+
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message2 = "Only images are supported.";
@@ -334,53 +336,63 @@ export class ProfileComponent implements OnInit {
     this.loaderOnImageDialog = true;
     var reader = new FileReader();
     this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
       this.loaderOnImageDialog = false;
-      
+
     }
   }
 
-  onAddPictureClick(){
+  onAddPictureClick() {
     this.showDialogOnAddPicture = false;
   }
 
-  uploadPicture(){
-    
+  uploadPicture() {
+
     this.profileGalleryObj.userId = this.id;
-    this.formData.append("userId",this.profileGalleryObj.userId);
-    this.formData.append("galleryImage",this.profileGalleryObj.galleryImage);
-    console.log("ye hai form data",this.profileGalleryObj.galleryImage)
-    this.service.saveGalleryImage(this.formData).subscribe(d=>{
-      if(d.status == 200){
+    this.formData.append("userId", this.profileGalleryObj.userId);
+    this.formData.append("galleryImage", this.profileGalleryObj.galleryImage);
+    console.log("ye hai form data", this.profileGalleryObj.galleryImage)
+    this.service.saveGalleryImage(this.formData).subscribe(d => {
+      if (d.status == 200) {
         console.log("Uploaded")
         this.getGalleryImages();
-        this.toastService.showToast("Picture uploaded","#toast-9")
+        this.toastService.showToast("Picture uploaded", "#toast-9")
       }
-      else{
+      else {
         console.log("ERROR");
-        
+
       }
     })
   }
 
-  getGalleryImages(){
+  getGalleryImages() {
     this.profileGalleryArr = [];
-    this.service.getAllImages(this.id).subscribe(d=>{
-      if(d.status == 200){
-        d.result.map(data=>{
+    this.service.getAllImages(this.id).subscribe(d => {
+      if (d.status == 200) {
+        d.result.map(data => {
           this.profileGalleryArr.push(data);
         })
       }
     })
-   
+
   }
 
- showPicture(id){
-   this.router.navigate(['viewimage',id]);
-   console.log("image id",id);
-   
- }
+  showPicture(id) {
+    this.router.navigate(['viewimage', id]);
+    console.log("image id", id);
+
+  }
+
+
+
+  routeToChat() {
+
+    this.chatService.initiateChat(this.loggedInUserId, this.id)
+      .subscribe((chatroom) => {
+        this.router.navigate([`chat/${chatroom}/${this.id}`])
+      })
+  }
 
 }

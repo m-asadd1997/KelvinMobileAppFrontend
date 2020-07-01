@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit {
   friendId: number;
   friendObj: any;
   chats: Array<any> = [];
+  email=sessionStorage.getItem("email")
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private _location: Location,
     private service: ChatService) {
@@ -45,10 +46,11 @@ export class ChatComponent implements OnInit {
   ngOnDestroy() {
     if (this.stompClient) {
       console.log("unsubscribeddddd")
+      this.goOffline();
       this.stompClient.unsubscribe()
     }
   }
-
+ 
   initializeWebSocketConnection() {
     const url = environment.baseUrl;
     let ws = new SockJS(url + "ws");
@@ -57,6 +59,7 @@ export class ChatComponent implements OnInit {
     this.stompClient.connect({}, function (frame) {
 
       that.openGlobalSocket()
+      that.goOnline();
 
     });
   }
@@ -69,7 +72,13 @@ export class ChatComponent implements OnInit {
 
     });
   }
+  goOnline() {
+    this.stompClient.send(`/app/go-online/${this.email}`, {});
+  }
 
+  goOffline() {
+    this.stompClient.send(`/app/go-offline/${this.email}`, {});
+  }
 
   getChats(chatroomId, friendId) {
     this.service.getAllChatroomChats(chatroomId, friendId)
@@ -96,6 +105,10 @@ export class ChatComponent implements OnInit {
 } 
   formateTime(date) {
     return moment(date).format('LT');
+  }
+
+  getToday(){
+    return moment(new Date()).format('LLLL')
   }
 
   scrollToBottom(): void {

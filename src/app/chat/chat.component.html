@@ -23,7 +23,7 @@
     <div  #scrollMe
     [scrollTop]="scrollMe.scrollHeight" [ngStyle]="screenHeight?{height:screenHeight+'px',overflow:'scroll'}:{}">
         <div class="message-divider">
-            Friday, Sep 20, 10:40 AM
+           {{getToday()}}
         </div>
 
         <div *ngFor="let chat of chats"

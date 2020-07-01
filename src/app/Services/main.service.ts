@@ -48,6 +48,9 @@ export class MainService {
   getAllFriends(id):Observable<any>{
     return this.http.get(environment.baseUrl+"api/get-all-friends/"+id);
   }
+  getAllFriendsAndStatus(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/get-all-friends-status/"+id);
+  }
 
   getProfile(id):Observable<any>{
     return this.http.get(environment.baseUrl+"api/profile/getprofile/"+id);
