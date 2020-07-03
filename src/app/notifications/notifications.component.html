@@ -1,40 +1,36 @@
-<div class="appHeader bg-primary scrolled">
-    <div class="left">
-      <div >
-        <h2 class="title" style="color: #1877F2;">Notifications</h2>
-        
-      </div>
-    </div>
-   
-    <div class="right">
-      <a  class="headerButton toggle-searchbox">
+
+  <div class="appHeader">
+    <div (click)="gotoNewsFeed()" class="left">
+      <a class="headerButton toggle-searchbox">
         <!-- <img src="assets/search4.png" height="26px" width="26px"> -->
         <ion-icon src="assets/left-arrow.svg"></ion-icon>
       </a>
     </div>
+    <div  style="color: white !important;font-weight: bold;font-size: 16px;">Notifications</div>
+  </div>
+<div id="appCapsule" style="height: 538px;">
+
+    <div *ngFor="let user of usersArray" class="notification-dialog android-style">
+      <div class="notification-header" style="height: 50px;">
+        <div class="item">
+          <img src="assets/img/sample/avatar/avatar6.jpg" alt="image" class="imaged w24 rounded">
+          <strong style="font-weight: 500;padding: 5px 10px; font-size: large;">{{user.name}} <span
+              style="font-size: medium;">sent you friend request</span></strong>
+          <p style="font-size: smaller; margin-left: 12%;">just now</p>
+        </div>
+      </div>
+      <div class="subtext" style="margin-left: 8%;">
+        <div>
+          <button type="button" class="btn btn-primary btn-sm rounded shadowed mr-1 mb-1"
+            style="width: 60px;height: 28px;" (click)="acceptRequest(user.id)">Confirm</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm rounded shadowed mr-1 mb-1"
+            style="width: 60px;height: 28px;" (click)="deleteRequest(user.id)">Delete</button>
+        </div>
+        <!-- <div *ngIf="showReqStatus">
+          {{requestStatus}}
+        </div> -->
+      </div>
+    </div>
   </div>
 
-  <div id="appCapsule">
-    <div>
-        <div *ngFor="let user of usersArray" class="notification-dialog android-style">
-            <div class="notification-header" style="height: 50px;">
-                <div class="item">
-                    <img src="assets/img/sample/avatar/avatar6.jpg" alt="image" class="imaged w24 rounded">
-                    <strong style="font-weight: 500;padding: 5px 10px; font-size: large;">{{user.name}} <span style="font-size: medium;">sent you friend request</span></strong>
-                    <p style="font-size: smaller; margin-left: 12%;">just now</p>
-                </div>
-            </div>
-                <div class="subtext" style="margin-left: 8%;">
-                    <div *ngIf="!showReqStatus">
-                    <button type="button" class="btn btn-primary btn-sm rounded shadowed mr-1 mb-1" style="width: 60px;height: 28px;" (click)="acceptRequest(user.id)">Confirm</button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm rounded shadowed mr-1 mb-1" style="width: 60px;height: 28px;" (click)="deleteRequest(user.id)">Delete</button>
-                    </div>
-                    <div *ngIf="showReqStatus">
-                        {{requestStatus}}
-                    </div>
-                </div>
-        </div>
-    </div>
-  
-  </div>
 <app-bottom-menu></app-bottom-menu>

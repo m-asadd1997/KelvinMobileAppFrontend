@@ -1,11 +1,11 @@
 <div class="appHeader bg-primary scrolled">
   <div class="left">
-    <div >
+    <div>
       <h2 class="title" style="color: #1877F2;">Discover</h2>
-      
+
     </div>
   </div>
- 
+
   <div class="right">
     <a (click)="goToSearch()" class="headerButton toggle-searchbox">
       <!-- <img src="assets/search4.png" height="26px" width="26px"> -->
@@ -15,61 +15,77 @@
 </div>
 <!-- * App Header -->
 <div id="appCapsule">
-  <div class="divider mt-2 mb-3"></div>
-  <div class="header-large-title">
-    <h4 class="subTitle">Business Ads</h4>
-    
-  </div>
 
-  <div class="section full mt-3 mb-3">
+  <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}">
+    <div class="divider mt-2 mb-3"></div>
+    <div class="header-large-title">
+      <h4 class="subTitle">Business Ads</h4>
+
+    </div>
+
+    <div class="section full mt-3 mb-3">
       <div style="margin-left: 5%;">
-    <owl-carousel
-      [carouselClasses]="['carousel-multiple', 'owl-carousel', 'owl-theme']"
-    >
-      <div class="item" style="width: 100%; padding: 4%;">
-        <div class="card">
-          <img
-            src="assets/img/sample/photo/d1.jpg"
-            class="card-img-top"
-            alt="image"
-            style="height: 100px;width: 100%;"
-          />
-          <div class="card-body pt-2" style="padding: 0px 13px 20px 13px">
-            <h6 class="mb-0" style="font-size: 12px;">Progressive web app ready</h6>
+        <owl-carousel [items]="businessAds" [carouselClasses]="['carousel-multiple', 'owl-carousel', 'owl-theme']">
+          <div class="item" *ngFor="let ad of businessAds" (click)="gotoAddPreview(ad.id)" style="width: 100%; padding: 4%;">
+            <div class="card">
+              <img [src]="ad.image?'data:image/jpeg;base64,'+ad.image:'assets/img/sample/photo/d1.jpg'"  class="card-img-top" alt="image"
+                style="height: 100px;width: 100%;" />
+              <div class="card-body pt-2" style="padding: 0px 13px 20px 13px">
+                <h6 class="mb-0" style="font-size: 12px;"> 
+                   {{ad.description.length>20?ad.description.substring(0,20)+'...':ad.description}}
+                  </h6>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="item" style="width: 100%; padding: 4%;">
-        <div class="card">
-          <img
-            src="assets/img/sample/photo/d2.jpg"
-            class="card-img-top"
-            alt="image"
-            style="height: 100px;width: 100%;"
-          />
-          <div class="card-body pt-2" style="padding: 0px 13px 20px 13px">
-            <h6 class="mb-0" style="font-size: 12px;">Progressive web app ready</h6>
-          </div>
-        </div>
-      </div>
-      <div class="item" style="width: 100%; padding: 4%;">
-        <div class="card">
-          <img
-            src="assets/img/sample/photo/d3.jpg"
-            class="card-img-top"
-            alt="image"
-            style="height: 100px;width: 100%;"
-          />
-          <div class="card-body pt-2" style="padding: 0px 13px 20px 13px">
-            <h6 class="mb-0" style="font-size: 12px;">Progressive web app ready</h6>
-          </div>
-        </div>
-      </div>
+        </owl-carousel>
 
-    </owl-carousel>
-</div>
+        <!-- if no business ads are available -->
+
+        <div *ngIf="!businessAds.length" style="width:95%" class="card">
+          <div class="card-header"></div>
+          <div class="card-body" style="text-align: center;">
+          
+            <p class="card-text">No Business Ads to show</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- //user POsts -->
+
+
+    <div>
+
+     
+
+
+      <div *ngFor="let ad of userAds" class="section mt-3 mb-3">
+        <div class="card">
+          <div  style="display: flex; padding: 10px;align-items: center;" class="image-wrapper">
+            <img (click)="gotoUserProfile(ad.userId)" style="border: 1px solid rgb(2, 2, 92);height: 35px;margin-right: 10px;" [src]="
+                ad.userProfilePicture
+                  ? 'data:image/jpeg;base64,' +  ad.userProfilePicture
+                  : 'assets/user.png'
+              " alt="image" class="imaged rounded userImg">
+
+            <strong style="font-size:12px">{{ad.username}}</strong>
+          </div>
+          <img style="height: 250px;" [src]="ad.image?'data:image/jpeg;base64,'+ad.image:null" class="card-img-top postImg"
+            alt="image">
+          <div class="card-body">
+            <p class="card-text">
+              {{ad.description.length>80?ad.description.substring(0,80)+'...':ad.description}}
+            </p>
+            <a (click)="gotoAddPreview(ad.id)" class="btn btn-primary">
+      
+              Preview
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
- 
 
 </div>
 <app-bottom-menu></app-bottom-menu>

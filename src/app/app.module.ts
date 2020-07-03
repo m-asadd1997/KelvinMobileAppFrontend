@@ -9,7 +9,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NoopInterceptor } from './request.intercept';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NewsfeedPageComponent } from './newsfeed-page/newsfeed-page.component';
 import { SearchComponent } from './search/search.component';
 import { IonicModule } from '@ionic/angular';
@@ -19,6 +19,10 @@ import { AppSideBarComponent } from './app-side-bar/app-side-bar.component';
 import { BottomMenuComponent } from './bottom-menu/bottom-menu.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PostComponent } from './post/post.component';
+import { BlogpostComponent } from './blogpost/blogpost.component';
+import { ViewImageComponent } from './view-image/view-image.component';
+import { ChatComponent } from './chat/chat.component';
+
 
 
 @NgModule({
@@ -32,7 +36,10 @@ import { PostComponent } from './post/post.component';
     AppSideBarComponent,
     BottomMenuComponent,
     NotificationsComponent,
-    PostComponent
+    PostComponent,
+    BlogpostComponent,
+    ViewImageComponent,
+    ChatComponent
     
   ],
   imports: [
@@ -43,6 +50,7 @@ import { PostComponent } from './post/post.component';
     FormsModule,
     IonicModule.forRoot(),
     OwlModule,
+    ReactiveFormsModule
   
   ],
   providers: [

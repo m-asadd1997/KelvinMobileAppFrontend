@@ -48,6 +48,9 @@ export class MainService {
   getAllFriends(id):Observable<any>{
     return this.http.get(environment.baseUrl+"api/get-all-friends/"+id);
   }
+  getAllFriendsAndStatus(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/get-all-friends-status/"+id);
+  }
 
   getProfile(id):Observable<any>{
     return this.http.get(environment.baseUrl+"api/profile/getprofile/"+id);
@@ -61,5 +64,20 @@ export class MainService {
     return this.http.post(environment.baseUrl+"token/picture",obj)
   }
 
+  saveGalleryImage(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/gallery/",obj);
+  }
+
+  getAllImages(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/gallery/"+id);
+  }
+
+  getImageById(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/gallery/singleimage/"+id);
+  }
+
+  deleteGalleryImage(id):Observable<any>{
+    return this.http.delete(environment.baseUrl+"api/gallery/"+id);
+  }
   
 }

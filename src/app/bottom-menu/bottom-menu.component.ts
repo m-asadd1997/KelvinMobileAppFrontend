@@ -2,7 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainService } from '../Services/main.service';
 import { NotificationService } from '../Services/notification.service';
-
+import { ChatService } from '../Services/chat.service';
+import { environment } from '../../environments/environment'
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import * as moment from 'moment'
 @Component({
   selector: 'app-bottom-menu',
   templateUrl: './bottom-menu.component.html',
@@ -10,20 +14,23 @@ import { NotificationService } from '../Services/notification.service';
 })
 export class BottomMenuComponent implements OnInit {
 
+  private stompClient;
   id = sessionStorage.getItem('userId')
   friendsArray = [];
   userName: string;
   profilePicture;
   checkStorage;
   notificationCount: number = 0
+  email = sessionStorage.getItem("email")
   // @Input("noOfNotifications") noOfNotifications:number;
 
-  constructor(private router: Router, private service: MainService, private notificationService: NotificationService) { }
+  constructor(private router: Router, private service: MainService,
+    private notificationService: NotificationService, private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.id = sessionStorage.getItem('userId');
     this.userName = sessionStorage.getItem('username');
-
+    this.initializeWebSocketConnection();
     // this.profilePicture = sessionStorage.getItem('profilePicture')
     this.checkSessionStorage();
 
@@ -40,6 +47,19 @@ export class BottomMenuComponent implements OnInit {
 
   }
 
+
+  initializeWebSocketConnection() {
+    const url = environment.baseUrl;
+    let ws = new SockJS(url + "ws");
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+    this.stompClient.connect({}, function (frame) {
+
+      that.goOnline()
+
+    });
+  }
+
   checkSessionStorage() {
     this.checkStorage = sessionStorage.getItem('profilePicture')
     if (this.checkStorage !== "null") {
@@ -47,19 +67,33 @@ export class BottomMenuComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this.stompClient)
+      this.goOffline();
+  }
+
   getAllFriends() {
 
     // this.profilePicture = sessionStorage.getItem('profilePicture');
     this.friendsArray = [];
 
-    this.service.getAllFriends(this.id).subscribe(d => {
+    this.service.getAllFriendsAndStatus(this.id).subscribe(d => {
       if (d.status == 200) {
+        console.log(d)
         d.result.map(u => {
-          this.friendsArray.push(u.friend);
+          this.friendsArray.push(u);
         })
       }
 
     })
+  }
+
+  goOnline() {
+    this.stompClient.send(`/app/go-online/${this.email}`, {});
+  }
+
+  goOffline() {
+    this.stompClient.send(`/app/go-offline/${this.email}`, {});
   }
 
   goToNewsFeed() {
@@ -97,5 +131,10 @@ export class BottomMenuComponent implements OnInit {
       })
   }
 
-
+  gotoChatroom(friendId) {
+    this.chatService.initiateChat(this.id, friendId)
+      .subscribe((chatroom) => {
+        this.router.navigate([`chat/${chatroom}/${friendId}`])
+      })
+  }
 }

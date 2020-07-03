@@ -1,0 +1,117 @@
+<div class="appHeader bg-primary text-light">
+    <div class="left">
+        <a (click)="gotoNewsFeed()" class="headerButton goBack">
+            <ion-icon src="assets/left-arrow.svg"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Post</div>
+    <div class="right">
+        <!-- <a href="javascript:;" class="headerButton">
+                <ion-icon src="assets/email.svg"></ion-icon>
+            </a> -->
+
+    </div>
+</div>
+<!-- * App Header -->
+
+<!-- App Capsule -->
+<div id="appCapsule">
+    <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}">
+        <div class="blog-post">
+            <div class="mb-2">
+                <img style="height: 300px;"
+                    [src]="postObj.image?'data:image/jpeg;base64,'+postObj.image:'assets/img/sample/photo/wide1.jpg'"
+                    alt="image" class="imaged square w-100 myImg">
+            </div>
+           
+            <div class="post-header">
+                <div>
+                    <a (click)="gotoUserProfile()">
+                        <img [src]="postObj.userProfilePicture?'data:image/jpeg;base64,'+postObj.userProfilePicture:'assets/img/sample/avatar/avatar1.jpg'"
+                            alt="avatar" class="imaged w24 rounded mr-05">
+                        {{postObj.username}}
+                    </a>
+                </div>
+                <!-- Jun 11, 2020 -->
+                {{dateFormate(postObj.date)}}
+            </div>
+            <div class="post-body">
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <a *ngIf="postObj.url" [attr.href]="'http://'+postObj.url"   class="title">{{postObj.url}}</a>
+                </div>
+                <p>
+
+                    {{isCollapsed?postObj.description.substring(0,200)+'...':postObj.description}}
+                    <a *ngIf="isCollapsed" (click)="isCollapsed=false">see more</a>
+                </p>
+
+            </div>
+
+
+            <div class="section mt-4">
+                <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal"
+                    data-target="#actionSheetShare">
+                    <ion-icon name="share-outline"></ion-icon>
+                    Share This Post
+                </button>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<!-- * App Capsule -->
+
+<!-- Share Action Sheet -->
+<div class="modal fade action-sheet inset" id="actionSheetShare" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share with</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="action-button-list">
+                    <li>
+                        <a href="#" class="btn btn-list" data-dismiss="modal">
+                            <span>
+                                <ion-icon name="logo-facebook"></ion-icon>
+                                Facebook
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-list" data-dismiss="modal">
+                            <span>
+                                <ion-icon name="logo-twitter"></ion-icon>
+                                Twitter
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-list" data-dismiss="modal">
+                            <span>
+                                <ion-icon name="logo-instagram"></ion-icon>
+                                Instagram
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-list" data-dismiss="modal">
+                            <span>
+                                <ion-icon name="logo-linkedin"></ion-icon>
+                                Linkedin
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Share Action Sheet -->
+
+
+<app-bottom-menu></app-bottom-menu>
