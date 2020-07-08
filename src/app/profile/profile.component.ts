@@ -30,10 +30,11 @@ export class ProfileComponent implements OnInit {
   description = "";
   descriptionSection = false;
   profileId: any;
-  noOfFriends;
+  noOfFriends = 0;
   picture;
   friendsArray = [];
   showCloseOnAction: boolean = true;
+  picturesCount = 0;
   @HostListener('window:resize', ['$event'])
   screenHeight;
   screenWidth;
@@ -373,7 +374,11 @@ export class ProfileComponent implements OnInit {
       if (d.status == 200) {
         d.result.map(data => {
           this.profileGalleryArr.push(data);
+          
         })
+         this.picturesCount =  this.profileGalleryArr.length
+     
+        
       }
     })
 

@@ -1,0 +1,55 @@
+<div class="appHeader bg-primary scrolled">
+    <div class="left">
+      <div>
+        <h2 class="title" style="color: #1877F2;">Le refuge</h2>
+  
+      </div>
+    </div>
+  </div>
+  <div id="appCapsule">
+
+    <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}">
+      <div class="divider mt-2 mb-3"></div>
+      
+      <div *ngIf="!events.length" style="width:100%" class="card">
+        <div class="card-header"></div>
+        <div class="card-body" style="text-align: center;">
+        
+          <p class="card-text">No Le refuge to show</p>
+        </div>
+      </div>
+    <div>
+
+        
+     
+
+
+        <div *ngFor="let event of events" class="section mt-3 mb-3">
+          <div class="card">
+            <div  style="display: flex; padding: 10px;align-items: center;" class="image-wrapper">
+              <img (click)="gotoUserProfile(event.user.id)" style="border: 1px solid rgb(2, 2, 92);height: 35px;margin-right: 10px;" [src]="
+                  event.user.profilePicture
+                    ? 'data:image/jpeg;base64,' +  event.user.profilePicture
+                    : 'assets/user.png'
+                " alt="image" class="imaged rounded userImg">
+  
+              <strong style="font-size:12px">{{event.user.name}}</strong>
+            </div>
+            <img style="height: 250px;" [src]="event.image?'data:image/jpeg;base64,'+event.image:null" class="card-img-top postImg"
+              alt="image">
+            <div class="card-body">
+              <p class="card-text">
+                {{event.description.length>80?event.description.substring(0,80)+'...':event.description}}
+              </p>
+              <a (click)="gotoEventPreview(event.id)" class="btn btn-primary">
+        
+                Preview
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <app-bottom-menu></app-bottom-menu>

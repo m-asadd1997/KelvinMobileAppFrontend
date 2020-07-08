@@ -15,6 +15,7 @@ export class RegisterPageComponent implements OnInit {
   constructor(private router:Router,private service: MainService, private toastService:ToastUtilService) { }
 
   ngOnInit(): void {
+    this.registerObj.userType = null;
   }
 
   goToLogin(){
