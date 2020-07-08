@@ -4,6 +4,7 @@ import { LoginService } from '../Services/login.service';
 import { ToastUtilService } from '../Services/toast-util.service';
 import { MainService } from '../Services/main.service';
 import { Profile } from '../profile/profile';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-login-page',
@@ -63,6 +64,12 @@ export class LoginPageComponent implements OnInit {
 
   showToast(){
     this.toastService.showToast("Success","#toast-15")
+  }
+  
+  showScrollBar(id){
+  $(id).on('onfocus', function() {
+    document.body.scrollTop = $(this).offset().top;
+});
   }
 
 

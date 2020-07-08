@@ -80,4 +80,23 @@ export class MainService {
     return this.http.delete(environment.baseUrl+"api/gallery/"+id);
   }
   
+  submitEvent(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/event/post-event",obj);
+  }
+
+  getAllEvents():Observable<any>{
+    return this.http.get(environment.baseUrl+"api/event/get-all-events");
+  }
+
+  getEventById(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"api/event/get-event/"+id);
+  }
+
+  deleteEvent(id):Observable<any>{
+    return this.http.delete(environment.baseUrl+"api/event/delete-event/"+id)
+  }
+
+  editEvent(id,obj):Observable<any>{
+    return this.http.put(environment.baseUrl+"api/event/update-event/"+id,obj);
+  }
 }

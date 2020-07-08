@@ -20,7 +20,8 @@ export class BottomMenuComponent implements OnInit {
   userName: string;
   profilePicture;
   checkStorage;
-  notificationCount: number = 0
+  notificationCount: number = 0;
+  userType = sessionStorage.getItem("userType")
   email = sessionStorage.getItem("email")
   // @Input("noOfNotifications") noOfNotifications:number;
 
@@ -45,6 +46,12 @@ export class BottomMenuComponent implements OnInit {
 
 
 
+  }
+  checkUserType(){
+    if(this.userType == "admin")
+      return true;
+     else
+      return false;
   }
 
 

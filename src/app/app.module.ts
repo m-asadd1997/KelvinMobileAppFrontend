@@ -22,6 +22,9 @@ import { PostComponent } from './post/post.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { ViewImageComponent } from './view-image/view-image.component';
 import { ChatComponent } from './chat/chat.component';
+import { AddEventComponent } from './add-event/add-event.component';
+import { DiscoverEventsComponent } from './discover-events/discover-events.component';
+import { EventPreviewComponent } from './event-preview/event-preview.component';
 
 
 
@@ -39,7 +42,10 @@ import { ChatComponent } from './chat/chat.component';
     PostComponent,
     BlogpostComponent,
     ViewImageComponent,
-    ChatComponent
+    ChatComponent,
+    AddEventComponent,
+    DiscoverEventsComponent,
+    EventPreviewComponent
     
   ],
   imports: [
