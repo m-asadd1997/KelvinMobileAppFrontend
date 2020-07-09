@@ -23,6 +23,7 @@ export class BottomMenuComponent implements OnInit {
   notificationCount: number = 0;
   userType = sessionStorage.getItem("userType")
   email = sessionStorage.getItem("email")
+  chatCount: number = 0;
   // @Input("noOfNotifications") noOfNotifications:number;
 
   constructor(private router: Router, private service: MainService,
@@ -43,14 +44,15 @@ export class BottomMenuComponent implements OnInit {
 
     this.getNotificationCount();
     this.updateNotificationCount();
+    this.getChatsCount()
 
 
 
   }
-  checkUserType(){
-    if(this.userType == "admin")
+  checkUserType() {
+    if (this.userType == "admin")
       return true;
-     else
+    else
       return false;
   }
 
@@ -143,5 +145,10 @@ export class BottomMenuComponent implements OnInit {
       .subscribe((chatroom) => {
         this.router.navigate([`chat/${chatroom}/${friendId}`])
       })
+  }
+
+  getChatsCount() {
+    this.chatService.getChatCount(this.id)
+      .subscribe((res) => this.chatCount = res)
   }
 }

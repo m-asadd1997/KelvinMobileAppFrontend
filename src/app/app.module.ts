@@ -25,6 +25,7 @@ import { ChatComponent } from './chat/chat.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { DiscoverEventsComponent } from './discover-events/discover-events.component';
 import { EventPreviewComponent } from './event-preview/event-preview.component';
+import { ChatroomComponent } from './chatroom/chatroom.component';
 
 
 
@@ -45,7 +46,8 @@ import { EventPreviewComponent } from './event-preview/event-preview.component';
     ChatComponent,
     AddEventComponent,
     DiscoverEventsComponent,
-    EventPreviewComponent
+    EventPreviewComponent,
+    ChatroomComponent
     
   ],
   imports: [

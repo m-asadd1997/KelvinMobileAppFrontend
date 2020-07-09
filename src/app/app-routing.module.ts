@@ -13,6 +13,7 @@ import { ChatComponent } from './chat/chat.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { DiscoverEventsComponent } from './discover-events/discover-events.component';
 import { EventPreviewComponent } from './event-preview/event-preview.component';
+import { ChatroomComponent } from './chatroom/chatroom.component';
 
 
 const routes: Routes = [
@@ -47,16 +48,19 @@ const routes: Routes = [
     path: 'chat/:chatroom/:friendId', component: ChatComponent
   },
   {
-    path:'addevent',component:AddEventComponent
+    path: 'addevent', component: AddEventComponent
   },
   {
-    path:'discoverevents',component:DiscoverEventsComponent
+    path: 'discoverevents', component: DiscoverEventsComponent
   },
   {
-    path:'previewevent/:id',component:EventPreviewComponent
+    path: 'previewevent/:id', component: EventPreviewComponent
   },
   {
-    path:'editevent/:id',component:AddEventComponent
+    path: 'editevent/:id', component: AddEventComponent
+  },
+  {
+    path: 'chatroom', component: ChatroomComponent
   }
 ];
 
