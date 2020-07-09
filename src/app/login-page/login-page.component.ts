@@ -13,48 +13,49 @@ import * as $ from 'jquery';
 })
 export class LoginPageComponent implements OnInit {
 
-  profileObj : Profile = new Profile();
-  constructor(private router: Router, private service: LoginService,private toastService:ToastUtilService,private mainService: MainService) { }
+  profileObj: Profile = new Profile();
+  constructor(private router: Router, private service: LoginService, private toastService: ToastUtilService, private mainService: MainService) { }
 
 
   ngOnInit(): void {
     sessionStorage.clear();
   }
 
-  goToRegister(){
+  goToRegister() {
     this.router.navigate(['register'])
   }
 
   check(uname: string, p: string) {
-   
+
     // var output = this.service.checkUserandPass(uname, p);
     this.service.checkUserandPass(uname, p).subscribe(
       res => {
         if (res.status == 200) {
-          this.showToast(); 
-          console.log(res.result)       
-          sessionStorage.setItem("userId",res.result.id);
+          this.showToast();
+          console.log(res.result)
+          sessionStorage.setItem("userId", res.result.id);
           sessionStorage.setItem("token", res.result.token);
           sessionStorage.setItem("email", res.result.email);
           sessionStorage.setItem("username", res.result.username);
-          sessionStorage.setItem("profilePicture",res.result.profilePicture);
-          sessionStorage.setItem("userType",res.result.userType);
-         
-          
-          setTimeout(() => {this.router.navigate(['newsfeed'])
+          sessionStorage.setItem("profilePicture", res.result.profilePicture);
+          sessionStorage.setItem("userType", res.result.userType);
+
+
+          setTimeout(() => {
+            this.router.navigate(['newsfeed'])
             // this.router.navigate([""]);
           }, 1000);
 
 
         }
-      else{
-       
-        this.toastService.showToast("Unauthorized","#toast-16");
-        
-      }
+        else {
+
+          this.toastService.showToast("Unauthorized", "#toast-16");
+
+        }
       },
-      error=>{
-        this.toastService.showToast("Unauthorized","#toast-16");
+      error => {
+        this.toastService.showToast("Unauthorized", "#toast-16");
 
       }
     );
@@ -62,14 +63,14 @@ export class LoginPageComponent implements OnInit {
     // if(output == true){
   }
 
-  showToast(){
-    this.toastService.showToast("Success","#toast-15")
+  showToast() {
+    this.toastService.showToast("Success", "#toast-15")
   }
-  
-  showScrollBar(id){
-  $(id).on('onfocus', function() {
-    document.body.scrollTop = $(this).offset().top;
-});
+
+  showScrollBar(id) {
+    $(id).on('onfocus', function () {
+      document.body.scrollTop = $(this).offset().top;
+    });
   }
 
 

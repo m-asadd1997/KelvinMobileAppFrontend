@@ -61,13 +61,13 @@
                         </a>
                     </li>
                     <li>
-                        <a class="item">
+                        <a class="item" [routerLink]="['/chatroom']" data-dismiss="modal">
                             <div class="icon-box bg-primary">
                                 <ion-icon src="assets/message.svg"></ion-icon>
                             </div>
                             <div class="in">
                                 <div>Chat</div>
-                                <span class="badge badge-danger">5</span>
+                                <span *ngIf="chatCount>0" class="badge badge-danger">{{chatCount}}</span>
                             </div>
                         </a>
                     </li>
@@ -136,6 +136,9 @@
                         </a>
                     </li>
                 </ul>
+                <div *ngIf="!friendsArray.length" style="text-align: center;margin-top: 10px;">
+                    No Friends online
+                </div>
             </div>
            
     
