@@ -14,6 +14,9 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { DiscoverEventsComponent } from './discover-events/discover-events.component';
 import { EventPreviewComponent } from './event-preview/event-preview.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -61,11 +64,20 @@ const routes: Routes = [
   },
   {
     path: 'chatroom', component: ChatroomComponent
+  },
+  {
+    path:'edit-post/:id',component:EditPostComponent
+  },
+  {
+    path:'forgot-password',component:ForgotPasswordComponent
+  },
+  {
+    path:'resetlink/:uuid',component:ResetPasswordComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

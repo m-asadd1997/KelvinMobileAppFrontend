@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Register } from './register';
 import { MainService } from '../Services/main.service';
@@ -12,6 +12,7 @@ import { ToastUtilService } from '../Services/toast-util.service';
 export class RegisterPageComponent implements OnInit {
 
   registerObj: Register = new Register();
+  innerHeight: number;
   constructor(private router:Router,private service: MainService, private toastService:ToastUtilService) { }
 
   ngOnInit(): void {
@@ -58,6 +59,13 @@ export class RegisterPageComponent implements OnInit {
     this.registerObj.name = null;
     this.registerObj.password = null;
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 100;
+  console.log("height",this.innerHeight);
+  
+}
 
   
 }

@@ -26,6 +26,12 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { DiscoverEventsComponent } from './discover-events/discover-events.component';
 import { EventPreviewComponent } from './event-preview/event-preview.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+
+
+
 
 
 
@@ -47,7 +53,11 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
     AddEventComponent,
     DiscoverEventsComponent,
     EventPreviewComponent,
-    ChatroomComponent
+    ChatroomComponent,
+    EditPostComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    
     
   ],
   imports: [
@@ -59,14 +69,15 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
     IonicModule.forRoot(),
     OwlModule,
     ReactiveFormsModule
-  
+   
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: NoopInterceptor,
       multi: true
-    }
+    },
+    // MessagingService,AsyncPipe
   ],
   bootstrap: [AppComponent]
 })

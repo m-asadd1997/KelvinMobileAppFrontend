@@ -99,4 +99,16 @@ export class MainService {
   editEvent(id,obj):Observable<any>{
     return this.http.put(environment.baseUrl+"api/event/update-event/"+id,obj);
   }
+
+  sendMailOnForgotPassword(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/forgotpassword/mail-to-user",obj);
+  }
+
+  checkTokenExpiry(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/forgotpassword/check-expiry",obj);
+  }
+
+  saveNewPassword(obj):Observable<any>{
+    return this.http.post(environment.baseUrl+"api/forgotpassword/save-pass",obj);
+  }
 }

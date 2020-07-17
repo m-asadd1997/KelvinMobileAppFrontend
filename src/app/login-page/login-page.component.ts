@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../Services/login.service';
 import { ToastUtilService } from '../Services/toast-util.service';
@@ -12,18 +12,25 @@ import * as $ from 'jquery';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-
+  public innerHeight: any;
   profileObj: Profile = new Profile();
   constructor(private router: Router, private service: LoginService, private toastService: ToastUtilService, private mainService: MainService) { }
 
 
   ngOnInit(): void {
-    sessionStorage.clear();
+    this.checkToken();
   }
 
   goToRegister() {
     this.router.navigate(['register'])
   }
+
+  checkToken(){
+    if(sessionStorage.getItem("token")){
+      this.router.navigate(['newsfeed'])
+    }
+  };
+
 
   check(uname: string, p: string) {
 
@@ -41,10 +48,19 @@ export class LoginPageComponent implements OnInit {
           sessionStorage.setItem("userType", res.result.userType);
 
 
-          setTimeout(() => {
-            this.router.navigate(['newsfeed'])
-            // this.router.navigate([""]);
-          }, 1000);
+          if(res.result.userType == "admin"){
+            setTimeout(() => {
+              this.router.navigate(['discoverevents'])
+              // this.router.navigate([""]);
+            }, 1000);
+          }
+          else{
+            setTimeout(() => {
+              this.router.navigate(['newsfeed'])
+              // this.router.navigate([""]);
+            }, 1000);
+          }
+         
 
 
         }
@@ -67,11 +83,17 @@ export class LoginPageComponent implements OnInit {
     this.toastService.showToast("Success", "#toast-15")
   }
 
-  showScrollBar(id) {
-    $(id).on('onfocus', function () {
-      document.body.scrollTop = $(this).offset().top;
-    });
+
+  goToForgotPassword(){
+    this.router.navigate(['forgot-password'])
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 100;
+  console.log("height",this.innerHeight);
+  
+}
 
 
 }

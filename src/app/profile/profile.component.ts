@@ -400,4 +400,9 @@ export class ProfileComponent implements OnInit {
       })
   }
 
+
+  addClassToFriendsTab(addId,removeId){
+    $(removeId).removeClass("active")
+    $(addId).addClass("active")
+  }
 }

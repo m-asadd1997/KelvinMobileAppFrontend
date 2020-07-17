@@ -7,6 +7,12 @@ import { environment } from '../../environments/environment'
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import * as moment from 'moment'
+import { ToastUtilService } from '../Services/toast-util.service';
+import * as $ from 'jquery';
+
+
+
+
 @Component({
   selector: 'app-bottom-menu',
   templateUrl: './bottom-menu.component.html',
@@ -24,27 +30,24 @@ export class BottomMenuComponent implements OnInit {
   userType = sessionStorage.getItem("userType")
   email = sessionStorage.getItem("email")
   chatCount: number = 0;
+  message;
   // @Input("noOfNotifications") noOfNotifications:number;
 
   constructor(private router: Router, private service: MainService,
-    private notificationService: NotificationService, private chatService: ChatService) { }
+    private notificationService: NotificationService, private chatService: ChatService,private toastService:  ToastUtilService) { }
 
   ngOnInit(): void {
     this.id = sessionStorage.getItem('userId');
     this.userName = sessionStorage.getItem('username');
     this.initializeWebSocketConnection();
-    // this.profilePicture = sessionStorage.getItem('profilePicture')
     this.checkSessionStorage();
-
-
-
-
     this.getProfilePicture();
-    // console.log(this.profilePicture);
-
     this.getNotificationCount();
     this.updateNotificationCount();
     this.getChatsCount()
+    // this.messagingService.requestPermission()
+    // this.messagingService.receiveMessage()
+    // this.message = this.messagingService.currentMessage
 
 
 
@@ -64,6 +67,7 @@ export class BottomMenuComponent implements OnInit {
     let that = this;
     this.stompClient.connect({}, function (frame) {
 
+      that.openGlobalSocket();
       that.goOnline()
 
     });
@@ -97,6 +101,24 @@ export class BottomMenuComponent implements OnInit {
     })
   }
 
+
+  openGlobalSocket() {
+    console.log("open global socket")
+    let that = this;
+    this.stompClient.subscribe(`/topic/notification/${this.id}`, (message) => {
+      console.log((message.body), "   =========message")
+     this.toastService.showToast("Hello", "#toast-9")
+      // this.chats.push(JSON.parse(message.body));
+
+    
+
+    });
+  }
+
+
+ 
+
+
   goOnline() {
     this.stompClient.send(`/app/go-online/${this.email}`, {});
   }
@@ -106,7 +128,13 @@ export class BottomMenuComponent implements OnInit {
   }
 
   goToNewsFeed() {
-    this.router.navigate(['newsfeed'])
+    if(this.userType == "admin"){
+      this.router.navigate(['discoverevents'])
+    }
+    else{
+      this.router.navigate(['newsfeed'])
+    }
+    
   }
 
   goToNotifications() {

@@ -28,4 +28,12 @@ export class PostService {
   getAllBusinessPosts():Observable<any>{
     return this.http.get(environment.baseUrl+"api/business-posts")
   }
+
+  deletePost(id):Observable<any>{
+    return this.http.delete(environment.baseUrl+"api/post/delete-post/"+id);
+  }
+
+  editPost(id,obj):Observable<any>{
+    return this.http.put(environment.baseUrl+"api/post/update-post/"+id,obj);
+  }
 }
