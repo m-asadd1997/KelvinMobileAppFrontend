@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MainService } from '../Services/main.service';
 import { FriendsIds } from '../profile/friendsIds';
 import { NotificationService } from '../Services/notification.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-notifications',
@@ -12,10 +13,10 @@ import { NotificationService } from '../Services/notification.service';
 export class NotificationsComponent implements OnInit {
 
   id;
-  usersArray = [];
+  notificationsArray = [];
   friendsIdObj: FriendsIds = new FriendsIds();
   requestStatus;
-  // showReqStatus = false;
+  showReqStatus = false;
   noOfNotifications = 0;
   screenHeight = null;
   screenWidth = null;
@@ -25,25 +26,26 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.noOfNotifications = 0;
-    this.getAllRequests()
+    this.getAllNotifications();
   }
 
-  getAllRequests() {
-    this.usersArray = []
+  getAllNotifications() {
+    this.notificationsArray = []
     this.id = sessionStorage.getItem('userId')
-    this.service.getAllRequests(this.id).subscribe(d => {
+    this.notificationService.getAllNotificationsForLoggedInUser(this.id).subscribe(d => {
       if (d.status == 200) {
-        console.log("==========>",d);
-        
+        console.log("Notiss==========>",d);
         d.result.map(u => {
-          this.usersArray.push(u.userObj);
-          
+          this.notificationsArray.push(u);       
 
         })
         
         
-        this.noOfNotifications = this.usersArray.length;
+        this.noOfNotifications = this.notificationsArray.length;
+        
       }
+      console.log("ye hai notifcation array", this.notificationsArray);
+      
     })
 
     // = this.usersArray.length;
@@ -59,13 +61,17 @@ export class NotificationsComponent implements OnInit {
     console.log(this.screenHeight)
   }
 
-  acceptRequest(id) {
-    this.populateFriendsIdObj(id);
+  acceptRequest(id,notifcationId) {
+    this.populateFriendsIdObj(id,notifcationId);
     this.service.acceptRequest(this.friendsIdObj).subscribe(d => {
       if (d.status == 200) {
-        // this.requestStatus = "Accepted."
-        // this.showReqStatus = true;
-         this.getAllRequests()
+        this.requestStatus = "Accepted."
+        this.showReqStatus = true;
+        this.notificationService.deleteNotification(notifcationId).subscribe(d=>{
+          if(d.status == 200)
+          this.getAllNotifications()
+        })
+         
         this.notificationService.updateNotification();
       }
       else {
@@ -75,14 +81,18 @@ export class NotificationsComponent implements OnInit {
     })
   }
 
-  deleteRequest(id) {
-    this.populateFriendsIdObj(id);
+  deleteRequest(id,notifcationId) {
+    this.populateFriendsIdObj(id,notifcationId);
     this.service.cancelRequest(this.friendsIdObj).subscribe(d => {
       if (d.status == 200) {
-        // this.requestStatus = "Deleted."
-        // this.showReqStatus = true;
+        this.requestStatus = "Deleted."
+        this.showReqStatus = true;
+        this.notificationService.deleteNotification(notifcationId).subscribe(d=>{
+          if(d.status == 200)
+          this.getAllNotifications()
+        })
         this.notificationService.updateNotification();
-        this.getAllRequests()
+        
       }
       else {
         console.log("ERROR");
@@ -92,12 +102,17 @@ export class NotificationsComponent implements OnInit {
   }
 
 
-  populateFriendsIdObj(id) {
+  populateFriendsIdObj(id,notifcationId) {
+    this.friendsIdObj.notificationId = notifcationId;
     this.friendsIdObj.userId = sessionStorage.getItem('userId');
     this.friendsIdObj.friendId = id;
   }
 
   gotoNewsFeed(){
     this.router.navigate(['newsfeed'])
+  }
+
+  dateFormate(date) {
+    return moment(date).format('MMMM Do YYYY');
   }
 }

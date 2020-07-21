@@ -20,7 +20,31 @@ export class NotificationService {
   }
   getAllNotificationCount(id): Observable<any> {
 
-    return this.http.get(environment.baseUrl + "api/get-notification-count/" + id);
+    return this.http.get(environment.baseUrl + "api/notification/get-notification-count/" + id);
   }
 
+  getLiveNotification(toId,fromId,type):Observable<any>{
+    return this.http.get(environment.baseUrl + "api/notification/"+toId+"/"+fromId+"/"+type);
+  }
+
+  getAllNotifications(id):Observable<any>{
+    return this.http.get(environment.baseUrl + "api/notification/get-all-unseen/"+id)
+  }
+
+  seenNotification(id){
+    return this.http.get(environment.baseUrl + "api/notification/seen-notification/"+id)
+
+  }
+
+  seenAllPostNotifications(id,userId){
+    return this.http.get(environment.baseUrl+"api/notification/seen-all-notification/"+id+"/"+userId);
+  }
+
+  getAllNotificationsForLoggedInUser(id):Observable<any>{
+    return this.http.get(environment.baseUrl + "api/notification/get-all/"+id)
+  }
+
+  deleteNotification(id):Observable<any>{
+    return this.http.delete(environment.baseUrl+"api/notification/delete-notification/"+id);
+  }
 }

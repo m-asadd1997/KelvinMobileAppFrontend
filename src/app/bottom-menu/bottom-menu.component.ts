@@ -44,7 +44,8 @@ export class BottomMenuComponent implements OnInit {
     this.getProfilePicture();
     this.getNotificationCount();
     this.updateNotificationCount();
-    this.getChatsCount()
+    this.getChatsCount();
+    this.getAllNotifications();
     // this.messagingService.requestPermission()
     // this.messagingService.receiveMessage()
     // this.message = this.messagingService.currentMessage
@@ -67,7 +68,8 @@ export class BottomMenuComponent implements OnInit {
     let that = this;
     this.stompClient.connect({}, function (frame) {
 
-      that.openGlobalSocket();
+      that.openGlobalSocketForRequestNotification();
+      that.openGlobalSocketForPostNotification();
       that.goOnline()
 
     });
@@ -82,7 +84,11 @@ export class BottomMenuComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.stompClient)
-      this.goOffline();
+      {this.goOffline();
+        this.stompClient.unsubscribe()
+        // this.stompClient.terminate()
+      }
+
   }
 
   getAllFriends() {
@@ -102,20 +108,64 @@ export class BottomMenuComponent implements OnInit {
   }
 
 
-  openGlobalSocket() {
+  openGlobalSocketForRequestNotification() {
     console.log("open global socket")
     let that = this;
     this.stompClient.subscribe(`/topic/notification/${this.id}`, (message) => {
-      console.log((message.body), "   =========message")
-     this.toastService.showToast("Hello", "#toast-9")
-      // this.chats.push(JSON.parse(message.body));
-
+      console.log(JSON.parse(message.body), "   =========message")
+      let notificationMsg = JSON.parse(message.body).result.message
+      let notificationId = JSON.parse(message.body).result.id;
+      if(JSON.parse(message.body).status == 200){
+        this.notificationService.seenNotification(notificationId).subscribe(d=>{
+             this.notifyMe(notificationMsg);
+          }
+        );
+      }
     
 
     });
   }
 
+  openGlobalSocketForPostNotification() {
+    console.log("open global socket")
+    let that = this;
+    this.stompClient.subscribe(`/topic/post-notification/${this.id}`, (message) => {
+      console.log(JSON.parse(message.body), "   =========message")
+      let notificationMsg = JSON.parse(message.body).result.message;
+      let notificationId = JSON.parse(message.body).result.id;
+      let userId = JSON.parse(message.body).result.notificationFrom.id
+      if(JSON.parse(message.body).status == 200){
+        this.notificationService.seenAllPostNotifications(notificationId,userId).subscribe(d=>{
+             this.notifyMe(notificationMsg);
+          }
+        );
+      }
+      
+      
+    
 
+    });
+  }
+
+  getAllNotifications(){
+    
+    if(sessionStorage.length > 0 && this.id != null){
+      this.notificationService.getAllNotifications(this.id).subscribe(d=>{
+        console.log("notifications on app component")
+        if(d.status == 200){
+          
+          d.result.map(data=>{
+            this.notifyMe(data.message);
+          })
+        }
+        else{
+          console.log("no new notifications");
+          
+        }
+      
+      })
+    }
+  }
  
 
 
@@ -138,12 +188,17 @@ export class BottomMenuComponent implements OnInit {
   }
 
   goToNotifications() {
-    this.router.navigate(['notifications'])
+    
+    
+      this.router.navigate(['notifications'])
+    
+    
   }
   goToMyProfile() {
     this.router.navigate(['profiles/', this.id])
   }
   logout() {
+    this.stompClient.unsubscribe()
     sessionStorage.clear();
     this.router.navigate(['']);
   }
@@ -179,4 +234,45 @@ export class BottomMenuComponent implements OnInit {
     this.chatService.getChatCount(this.id)
       .subscribe((res) => this.chatCount = res)
   }
+
+  notifyMe(msg) {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+  
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+      // If it's okay let's create a notification
+      // console.log(notification)
+      this.showNotification(msg);
+    }
+  
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then(function (permission) {
+        // If the user accepts, let's create a notification
+        console.log(permission)
+        if (permission === "granted") {
+          // console.log(notification)
+          this.showNotification(msg);
+        }
+      });
+    }
+
+  }
+
+ 
+
+  showNotification(msg) {
+    const notification = new Notification('Montreal Sauvage', {
+      body: msg,
+      icon: 'assets/MTLSAUVAGE-LOGO.png'
+  
+    })
+  }
+
+  
+
+
 }
