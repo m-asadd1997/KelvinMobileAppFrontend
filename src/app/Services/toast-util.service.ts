@@ -15,4 +15,12 @@ export class ToastUtilService {
       $(toastId).removeClass("show");
   }, 2000);
 }
+
+showNotification(notificationId){
+  // $(notificationId)[0].innerText = msg
+  $(notificationId).addClass("show")
+//   setTimeout(() => {
+//     $(notificationId).removeClass("show");
+// }, 10000);
+}
 }

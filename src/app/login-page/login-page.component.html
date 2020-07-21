@@ -6,8 +6,8 @@
 
 
 <!-- App Capsule -->
-<div id="appCapsule" class="pt-0">
-
+<div id="appCapsule" class="pt-0" >
+    <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
     <div class="login-form mt-1" >
         <div class="section">
             <img src="assets/MTLSAUVAGE-LOGO.png" alt="image" class="form-image">
@@ -20,7 +20,7 @@
             <form action="app-pages.html">
                 <div class="form-group boxed">
                     <div class="input-wrapper">
-                        <input type="email" class="form-control" id="email" (onfocus)="showScrollBar('#email')" required #email placeholder="Email address">
+                        <input type="email" class="form-control" id="email"  required #email placeholder="Email address">
                         <i class="clear-input">
                             <!-- <ion-icon name="close-circle"></ion-icon> -->
                         </i>
@@ -40,7 +40,7 @@
                     <div>
                         <a (click)="goToRegister()">Register Now</a>
                     </div>
-                    <div><a href="page-forgot-password.html" class="text-muted">Forgot Password?</a></div>
+                    <div><a (click)="goToForgotPassword()" class="text-muted">Forgot Password?</a></div>
                 </div>
 
                 <div class="form-button-group">
@@ -50,6 +50,7 @@
             </form>
         </div>
     </div>
+</div>
 
 
 </div>

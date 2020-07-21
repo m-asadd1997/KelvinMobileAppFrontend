@@ -50,7 +50,8 @@
                 <!-- * profile box -->
     
                 <ul class="listview flush transparent no-line image-listview mt-2">
-                    <li>
+                  
+                    <li *ngIf="!checkUserType()">
                         <a  class="item" data-dismiss="modal" (click)="goToNewsFeed()">
                             <div class="icon-box bg-primary">
                                 <ion-icon src="assets/home.svg"></ion-icon>
@@ -60,7 +61,7 @@
                             </div>
                         </a>
                     </li>
-                    <li>
+                    <li *ngIf="!checkUserType()">
                         <a class="item" [routerLink]="['/chatroom']" data-dismiss="modal">
                             <div class="icon-box bg-primary">
                                 <ion-icon src="assets/message.svg"></ion-icon>
@@ -71,7 +72,7 @@
                             </div>
                         </a>
                     </li>
-                    <li>
+                    <li *ngIf="!checkUserType()">
                         <a [routerLink]="['/post']" class="item" data-dismiss="modal">
                             <div class="icon-box bg-primary">
                                 <ion-icon src="assets/article.svg"></ion-icon>
@@ -82,13 +83,13 @@
                             </div>
                         </a>
                     </li>
-                    <li>
+                    <li >
                         <a [routerLink]="['/discoverevents']" class="item" data-dismiss="modal">
                             <div class="icon-box bg-primary">
                                 <ion-icon src="assets/calendar.svg"></ion-icon>
                             </div>
                             <div class="in">
-                                <div>Discover Le refuge</div>
+                                <div>Le refuge</div>
                                 <!-- <span class="badge badge-danger">5</span> -->
                             </div>
                         </a>
@@ -99,7 +100,7 @@
                                 <ion-icon src="assets/calendar.svg"></ion-icon>
                             </div>
                             <div class="in">
-                                <div>Add Event</div>
+                                <div>Post on Le refuge</div>
                                 <!-- <span class="badge badge-danger">5</span> -->
                             </div>
                         </a>
@@ -151,4 +152,39 @@
             <!-- * sidebar buttons -->
         </div>
     </div>
+</div>
+
+<!-- Notification -->
+<div id="notification-7" class="notification-box">
+    <div class="notification-dialog ios-style">
+        <div class="notification-header">
+            <div class="in">
+                <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="imaged w24 rounded">
+                <strong>Pablo Cambeiro</strong>
+            </div>
+            <div class="right">
+                <span>just now</span>
+                <a href="#" class="close-button">
+                    <ion-icon name="close-circle"></ion-icon>
+                </a>
+            </div>
+        </div>
+        <div class="notification-content">
+            <div class="in">
+                <h3 class="subtitle">Hello There</h3>
+                <div class="text">
+                    This is a simple iOS style notification.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="toast-9" class="toast-box toast-center">
+    <div class="in">
+        <div class="text">
+            Centered Toast
+        </div>
+    </div>
+    <!-- <button type="button" class="btn btn-sm btn-text-light close-button">CLOSE</button> -->
 </div>
