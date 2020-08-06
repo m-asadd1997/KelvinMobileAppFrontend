@@ -17,6 +17,7 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddpostNotificationsComponent } from './addpost-notifications/addpost-notifications.component';
 
 
 const routes: Routes = [
@@ -73,6 +74,9 @@ const routes: Routes = [
   },
   {
     path:'resetlink/:uuid',component:ResetPasswordComponent
+  },
+  {
+    path:'addpostnotifications',component:AddpostNotificationsComponent
   }
 ];
 

@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   description = "";
   descriptionSection = false;
   profileId: any;
-  noOfFriends = 0;
+  noOfFriends = 0;r
   picture;
   friendsArray = [];
   showCloseOnAction: boolean = true;
@@ -48,9 +48,11 @@ export class ProfileComponent implements OnInit {
   profileGalleryArr = [];
   loaderOnImageDialog: any;
   showHideprivateProfile = false;
+  innerHeight: number = window.innerHeight - 100;
+
   constructor(private router: Router, private notificationService: NotificationService,
     private activateRoute: ActivatedRoute, private service: MainService, private chatService: ChatService, private toastService: ToastUtilService) {
-    this.onResize();
+    // this.onResize();
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
@@ -75,12 +77,12 @@ export class ProfileComponent implements OnInit {
     this.getAllFriends();
     this.getGalleryImages();
   }
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
   checkIfLoggedInUser() {
     if (this.id == this.loggedInUserId) {
       this.hideRequestButtons = false;
@@ -206,6 +208,7 @@ export class ProfileComponent implements OnInit {
     this.service.cancelRequest(this.friendsIdObj).subscribe(d => {
       if (d.status == 200) {
         this.changeBtnToAddFriend()
+        this.getProfile();
         this.notificationService.updateNotification()
       }
       else {
@@ -216,6 +219,8 @@ export class ProfileComponent implements OnInit {
   }
 
   populateFriendsIdObj() {
+    this.friendsIdObj.notificationTitle = "New notification from Montreal Sauvage"
+    this.friendsIdObj.notificationBody = sessionStorage.getItem("username") + "sent you a friend request";
     this.friendsIdObj.userId = sessionStorage.getItem('userId');
     this.friendsIdObj.friendId = this.id;
   }
@@ -405,4 +410,11 @@ export class ProfileComponent implements OnInit {
     $(removeId).removeClass("active")
     $(addId).addClass("active")
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 }

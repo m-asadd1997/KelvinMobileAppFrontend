@@ -16,7 +16,8 @@
 <!-- * App Header -->
 <div id="appCapsule">
 
-  <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}">
+  <!-- <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}"> -->
+    <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
     <div class="divider mt-2 mb-3"></div>
     <div class="header-large-title">
       <h4 class="subTitle">Business Ads</h4>
@@ -45,7 +46,7 @@
           <div class="card-header"></div>
           <div class="card-body" style="text-align: center;">
           
-            <p class="card-text">No Business Ads to show</p>
+            <p class="card-text">No business ads to show</p>
           </div>
         </div>
       </div>

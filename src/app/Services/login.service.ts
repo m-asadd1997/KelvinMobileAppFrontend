@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,10 @@ export class LoginService {
     }
     
     return this.http.post(environment.baseUrl+"token/generate-token",user);
+  }
+
+  setFireBaseToken(id,obj):Observable<any>{
+    return this.http.put(environment.baseUrl+"token/set-firebase-token/"+id,obj);
   }
       
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatService } from '../Services/chat.service';
 import { Chatroom } from './Chatroom'
@@ -17,22 +17,30 @@ export class ChatroomComponent implements OnInit {
   listOfUsers = [];
   showError = false;
   focused = false;
-  screenHeight = null;
-  screenWidth = null;
+  // screenHeight = null;
+  // screenWidth = null;
+  innerHeight: number = window.innerHeight - 100;
 
   constructor(private router: Router, private service: ChatService, private mainService: MainService) {
-    this.onResize();
+    // this.onResize();
   }
 
   ngOnInit(): void {
     this.getAllChatrooms();
   }
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 
   goBack() {
     this.router.navigate(['newsfeed']);

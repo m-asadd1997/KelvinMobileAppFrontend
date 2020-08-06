@@ -15,9 +15,10 @@ export class PostComponent implements OnInit {
 
   image: any = null;
   userType: string = sessionStorage.getItem("userType");
-  @HostListener('window:resize', ['$event'])
-  screenHeight;
-  screenWidth;
+  // @HostListener('window:resize', ['$event'])
+  // screenHeight;
+  // screenWidth;
+  innerHeight: number = window.innerHeight - 100;
   registerForm: FormGroup;
   submitted = false;
   PostObj: Post;
@@ -26,16 +27,16 @@ export class PostComponent implements OnInit {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private service: PostService) {
     this.PostObj = new Post();
-    this.onResize();
+    // this.onResize();
     this.formBuilderFunction();
   }
 
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
 
 
 
@@ -98,4 +99,11 @@ export class PostComponent implements OnInit {
   goBack() {
     this.router.navigate(['newsfeed'])
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 }

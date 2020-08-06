@@ -5,6 +5,8 @@ import { ToastUtilService } from '../Services/toast-util.service';
 import { MainService } from '../Services/main.service';
 import { Profile } from '../profile/profile';
 import * as $ from 'jquery';
+import { profile } from 'console';
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,17 +14,35 @@ import * as $ from 'jquery';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-  public innerHeight: any;
+  public innerHeight: any = window.innerHeight - 100;
   profileObj: Profile = new Profile();
-  constructor(private router: Router, private service: LoginService, private toastService: ToastUtilService, private mainService: MainService) { }
+  token;
+  constructor(private router: Router, private service: LoginService, private toastService: ToastUtilService, private mainService: MainService,private messagingService: MessagingService) { }
 
 
   ngOnInit(): void {
     this.checkToken();
+   
+    this.messagingService.requestPermission()
+    this.messagingService.receiveMessage()
+    this.getToken();
   }
 
+  getToken(){
+    
+    this.messagingService.myMethod$.subscribe((data) => {
+      console.log("response of token ",data)
+      this.token=data.toString();
+      console.log("token is here ",data)
+      // sessionStorage.setItem("firebaseToken",this.token);
+      
+
+    }
+  );
+  }
   goToRegister() {
     this.router.navigate(['register'])
+
   }
 
   checkToken(){
@@ -46,7 +66,8 @@ export class LoginPageComponent implements OnInit {
           sessionStorage.setItem("username", res.result.username);
           sessionStorage.setItem("profilePicture", res.result.profilePicture);
           sessionStorage.setItem("userType", res.result.userType);
-
+          this.profileObj.firebaseToken = this.token;
+          this.service.setFireBaseToken(res.result.id,this.profileObj).subscribe();
 
           if(res.result.userType == "admin"){
             setTimeout(() => {
@@ -90,7 +111,7 @@ export class LoginPageComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-  this.innerHeight = window.innerHeight - 100;
+  this.innerHeight = window.innerHeight - 102;
   console.log("height",this.innerHeight);
   
 }

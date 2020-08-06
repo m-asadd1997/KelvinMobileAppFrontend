@@ -12,17 +12,19 @@ import Post from '../post/Post';
 })
 export class EditPostComponent implements OnInit {
   image: any = null;
-  @HostListener('window:resize', ['$event'])
-  screenHeight;
-  screenWidth;
+  // @HostListener('window:resize', ['$event'])
+  // screenHeight;
+  // screenWidth;
   id: any;
   postObj: Post;
   isCollapsed=false;  
   userType: string = sessionStorage.getItem("userType");
   formData: FormData;
+  innerHeight: number = window.innerHeight - 100;
+
  
   constructor(private router: Router,private activatedRoute: ActivatedRoute, private service: PostService,private toastService: ToastUtilService) { 
-    this.onResize();
+    // this.onResize();
     this.postObj = new Post();
   }
 
@@ -41,12 +43,12 @@ export class EditPostComponent implements OnInit {
       })
   }
 
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
 
   onImageChange(event) {
 
@@ -85,4 +87,11 @@ export class EditPostComponent implements OnInit {
     this.router.navigate(['newsfeed'])
   }
 
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 }

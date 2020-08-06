@@ -47,4 +47,12 @@ export class NotificationService {
   deleteNotification(id):Observable<any>{
     return this.http.delete(environment.baseUrl+"api/notification/delete-notification/"+id);
   }
+
+  getNumberOfNotifications(id):Observable<any>{
+    return this.http.get(environment.baseUrl+"token/user/"+id)
+  }
+
+  updateNoOfNotifications(id,obj):Observable<any>{
+    return this.http.put(environment.baseUrl+"token/update-notificationscount/"+id,obj);
+  }
 }

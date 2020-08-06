@@ -22,8 +22,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webmanifest",
-              "src/service-worker.js",
+              "src/manifest.webmanifest",   
+              "src/service-worker.js",          
+              "src/firebase-messaging-sw.js",
+              
+              "src/manifest.json",
               {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",

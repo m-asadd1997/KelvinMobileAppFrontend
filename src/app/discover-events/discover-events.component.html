@@ -8,7 +8,9 @@
   </div>
   <div id="appCapsule">
 
-    <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}">
+    <!-- <div [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}"> -->
+      <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
+
       <div class="divider mt-2 mb-3"></div>
       
       <div *ngIf="!events.length" style="width:100%" class="card">

@@ -12,7 +12,9 @@ import { ToastUtilService } from '../Services/toast-util.service';
 export class RegisterPageComponent implements OnInit {
 
   registerObj: Register = new Register();
-  innerHeight: number;
+  innerHeight: number = window.innerHeight - 100;
+  checked = false;
+  confirmPassword;
   constructor(private router:Router,private service: MainService, private toastService:ToastUtilService) { }
 
   ngOnInit(): void {
@@ -24,7 +26,16 @@ export class RegisterPageComponent implements OnInit {
   }
 
   registerUser(){
-
+    if(this.checked === false && this.registerObj.password === this.confirmPassword){
+      this.toastService.showToast("Agree to terms and conditions first","#toast-16")
+    }
+    else if(this.checked && this.registerObj.password !== this.confirmPassword){
+      this.toastService.showToast("You entered wrong password","#toast-16")
+    }
+    else if(this.checked === false && this.registerObj.password !== this.confirmPassword){
+      this.toastService.showToast("You entered wrong password","#toast-16")
+    }
+    else if(this.checked && this.registerObj.password === this.confirmPassword){
     this.service.registerUser(this.registerObj).subscribe(d=>{
       if(d.status == 200){
         this.toastService.showToast("Success","#toast-15");
@@ -36,6 +47,9 @@ export class RegisterPageComponent implements OnInit {
       }
 
     })
+  }else{
+    this.toastService.showToast("Enter all required fields","#toast-16")
+  }
 
   }
 
@@ -58,6 +72,7 @@ export class RegisterPageComponent implements OnInit {
     this.registerObj.email = null;
     this.registerObj.name = null;
     this.registerObj.password = null;
+    
   }
 
   @HostListener('window:resize', ['$event'])
@@ -65,6 +80,11 @@ export class RegisterPageComponent implements OnInit {
   this.innerHeight = window.innerHeight - 100;
   console.log("height",this.innerHeight);
   
+}
+
+onChecked(){
+  this.checked = !this.checked;
+  console.log("checked ", this.checked)
 }
 
   

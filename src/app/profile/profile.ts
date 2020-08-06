@@ -3,5 +3,8 @@ export class Profile{
     description;
     userId;
     profilePicture;
+    firebaseToken;
+    numberOfNotifications;
+    numberOfFriendRequests;
 
 }

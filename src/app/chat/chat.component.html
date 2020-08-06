@@ -21,7 +21,7 @@
 <!-- App Capsule -->
 <div id="appCapsule">
     <div  #scrollMe
-    [scrollTop]="scrollMe.scrollHeight" [ngStyle]="screenHeight?{height:screenHeight+'px',overflow:'scroll'}:{}">
+    [scrollTop]="scrollMe.scrollHeight" style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
         <div class="message-divider">
            {{getToday()}}
         </div>

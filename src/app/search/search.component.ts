@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MainService } from '../Services/main.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
   listOfUsers = [];
   showError = false;
   id;
+  innerHeight: number = window.innerHeight - 100;
   constructor(private service: MainService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,15 +26,13 @@ export class SearchComponent implements OnInit {
     this.checkSearchName()
     this.listOfUsers = [];
     this.service.searchUsers(this.searchName).subscribe(d => {
-
       if (d.status == 200) {
-
         d.result.map(n => {
           let index = this.listOfUsers.findIndex(d => d.id == n.id);
           if (!this.listOfUsers.includes(index))
             this.listOfUsers.push(n);
         })
-
+                
       }
       else {
         this.showError = true;
@@ -50,7 +49,7 @@ export class SearchComponent implements OnInit {
   }
 
   goToProfile(id) {
-    console.log("this is id", id)
+  
     this.router.navigate(['profiles/', id])
   }
 
@@ -58,10 +57,12 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['newsfeed'])
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
 }
 
-        //  if(this.id!=d.id){
-        //    this.listOfUsers.push(d)
-        //  }else{
-        //    this.showError = true;
-        //  }
+}
+
