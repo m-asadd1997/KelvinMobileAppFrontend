@@ -12,9 +12,10 @@ import { ToastUtilService } from '../Services/toast-util.service';
 })
 export class AddEventComponent implements OnInit {
   image: any = null;
-  @HostListener('window:resize', ['$event'])
-  screenHeight;
-  screenWidth;
+  // @HostListener('window:resize', ['$event'])
+  // screenHeight;
+  // screenWidth;
+  innerHeight: number = window.innerHeight - 100;
   // registerForm: FormGroup;
   eventObj: AddEvent = new AddEvent();
   userId=sessionStorage.getItem("userId");
@@ -22,7 +23,7 @@ export class AddEventComponent implements OnInit {
   
   constructor(private router: Router, private formBuilder: FormBuilder,private service:MainService, private activatedRoute: ActivatedRoute,private toastService: ToastUtilService) {
     this.eventId = this.activatedRoute.snapshot.params.id; 
-    this.onResize();
+    // this.onResize();
     // this.formBuilderFunction();
    }
 
@@ -51,12 +52,12 @@ export class AddEventComponent implements OnInit {
   }
 
 
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
 
   onImageChange(event) {
 
@@ -139,4 +140,11 @@ export class AddEventComponent implements OnInit {
   goBack() {
     this.router.navigate(['discoverevents'])
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 }

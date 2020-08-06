@@ -29,6 +29,15 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { MessagingService } from './services/messaging.service';
+import { AsyncPipe } from '../../node_modules/@angular/common';
+import { AddpostNotificationsComponent } from './addpost-notifications/addpost-notifications.component';
+import { NgxUiLoaderModule,NgxUiLoaderHttpModule  } from 'ngx-ui-loader';
+
 
 
 
@@ -57,18 +66,25 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     EditPostComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    AddpostNotificationsComponent,
     
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js',{enabled: environment.production}),
+    ServiceWorkerModule.register('ngsw-worker.js',{enabled: true}),
     HttpClientModule,
     FormsModule,
     IonicModule.forRoot(),
     OwlModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
+    NgxUiLoaderModule
    
   ],
   providers: [
@@ -77,7 +93,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
       useClass: NoopInterceptor,
       multi: true
     },
-    // MessagingService,AsyncPipe
+    MessagingService,AsyncPipe
   ],
   bootstrap: [AppComponent]
 })

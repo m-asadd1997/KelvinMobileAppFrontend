@@ -13,9 +13,11 @@ import * as moment from 'moment'
 })
 export class ChatComponent implements OnInit {
 
-  @HostListener('window:resize', ['$event'])
-  screenHeight;
-  screenWidth;
+  // @HostListener('window:resize', ['$event'])
+  // screenHeight;
+  // screenWidth;
+
+  innerHeight: number = window.innerHeight - 100;
   private stompClient;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   scrollTop: number = null;
@@ -28,7 +30,7 @@ export class ChatComponent implements OnInit {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private _location: Location,
     private service: ChatService) {
-    this.onResize();
+    // this.onResize();
   }
 
   ngOnInit(): void {
@@ -116,10 +118,17 @@ export class ChatComponent implements OnInit {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
-  }
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
+  // }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 
   goBack() {
     this._location.back()

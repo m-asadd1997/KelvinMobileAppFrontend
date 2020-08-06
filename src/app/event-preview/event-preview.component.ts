@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { MainService } from '../Services/main.service';
@@ -10,7 +10,7 @@ import { ToastUtilService } from '../Services/toast-util.service';
   styleUrls: ['./event-preview.component.css']
 })
 export class EventPreviewComponent implements OnInit {
-
+  innerHeight: number = window.innerHeight - 100;
   isCollapsed=false;
   eventId;
   screenHeight = null;
@@ -28,7 +28,7 @@ export class EventPreviewComponent implements OnInit {
   userType = sessionStorage.getItem("userType")
   constructor(private router: Router, private activatedRoute: ActivatedRoute,private service:MainService,private toastService: ToastUtilService) { 
     this.eventId = this.activatedRoute.snapshot.params.id;
-    this.onResize();
+    // this.onResize();
   }
 
   ngOnInit(): void {
@@ -41,12 +41,12 @@ export class EventPreviewComponent implements OnInit {
    else
     return false;
   }
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
 
   getEvent(){
     this.service.getEventById(this.eventId).subscribe(d=>{
@@ -97,5 +97,12 @@ export class EventPreviewComponent implements OnInit {
   goToEditEvent(){
     this.router.navigate(['editevent/'+this.eventId]);
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 
 }

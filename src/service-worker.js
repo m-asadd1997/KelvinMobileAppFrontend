@@ -3,51 +3,7 @@
 // service worker usage on https://github.com/mozilla/serviceworker-cookbook
 /////////////////////////////////////////////////////////////////////////////
 
-// // Cache name
-// function notifyMe() {
-//   // Let's check if the browser supports notifications
-//   if (!("Notification" in window)) {
-//     alert("This browser does not support desktop notification");
-//   }
 
-//   // Let's check whether notification permissions have already been granted
-//   else if (Notification.permission === "granted") {
-//     // If it's okay let's create a notification
-//     console.log(notification)
-//     showNotification();
-//   }
-
-//   // Otherwise, we need to ask the user for permission
-//   else if (Notification.permission !== "denied") {
-//     Notification.requestPermission().then(function (permission) {
-//       // If the user accepts, let's create a notification
-//       console.log(permission)
-//       if (permission === "granted") {
-//         console.log(notification)
-//         showNotification();
-//       }
-//     });
-//   }
-
-  // At last, if the user has denied notifications, and you 
-  // want to be respectful there is no need to bother them any more.
-// }
-
-
-
-// function showNotification() {
-//   const notification = new Notification('HEY ASAS BAUG', {
-//     body: "DO YOU LOVE ME???",
-//     icon: 'assets/MTLSAUVAGE-LOGO.png'
-
-//   })
-
-  // if (navigator.onLine) {
-  //   console.log('online');
-  // } else {
-  //   console.log('offline');
-  // }
-// }
 
 
 
@@ -77,7 +33,7 @@ self.addEventListener('install', function(event) {
     caches.open(CACHE_NAME)
       .then(function(cache) {
         // Add all offline dependencies to the cache
-        // notifyMe();
+        //  notifyMe();
         return cache.addAll(REQUIRED_FILES);
       })
       .then(function() {
@@ -106,4 +62,6 @@ self.addEventListener('activate', function(event) {
   // Calling claim() to force a "controllerchange" event on navigator.serviceWorker
   event.waitUntil(self.clients.claim());
 });
+
+
 

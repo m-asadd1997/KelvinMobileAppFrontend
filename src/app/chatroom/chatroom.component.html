@@ -13,8 +13,8 @@
 
 
 <!-- App Capsule -->
-<div id="appCapsule" [ngStyle]="screenHeight?{height:screenHeight+'px','overflow':'scroll'}:{}">
-
+<div id="appCapsule">
+    <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
     <!-- //SEARCH BOX -->
     <div class="form-group" style="margin-top: 15px;">
         <div class="form-group searchbox">
@@ -93,6 +93,7 @@
     <div *ngIf="search.value.length==0 && !focused && !chatrooms.length" style="text-align: center;margin-top: 10px;">
         No Chatrooms to show
     </div>
+</div>
 </div>
 
 <!-- *App Capsule -->

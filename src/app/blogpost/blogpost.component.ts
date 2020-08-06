@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostService } from '../Services/post.service';
 import Post from '../post/Post';
@@ -10,7 +10,7 @@ import { ToastUtilService } from '../Services/toast-util.service';
   styleUrls: ['./blogpost.component.css']
 })
 export class BlogpostComponent implements OnInit {
-
+  innerHeight: number = window.innerHeight - 100;
   postId: any;
   postObj: Post;
   screenHeight = null;
@@ -21,7 +21,7 @@ export class BlogpostComponent implements OnInit {
   showEditAndDeleteBtns = false;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: PostService,private toastService: ToastUtilService) {
     //  console.log(this.activatedRoute)
-    this.onResize();
+    // this.onResize();
     this.postId = this.activatedRoute.snapshot.params.id;
     this.postObj = new Post();
   }
@@ -30,12 +30,12 @@ export class BlogpostComponent implements OnInit {
     this.getPost(this.postId)
 
   }
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
 
 
   gotoNewsFeed() {
@@ -93,6 +93,12 @@ export class BlogpostComponent implements OnInit {
     this.router.navigate(['edit-post/',this.postId])
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
+}
 
 
 

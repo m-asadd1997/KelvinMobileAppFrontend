@@ -19,7 +19,8 @@
 <!-- App Capsule -->
 <div id="appCapsule">
 
-    <div [ngStyle]="screenHeight?{'height':screenHeight+'px','overflow':'scroll'}:{}">
+    <!-- <div [ngStyle]="screenHeight?{'height':screenHeight+'px','overflow':'scroll'}:{}"> -->
+        <div style="overflow-y: scroll !important;" [style.height.px]="innerHeight">
         <div class="section mt-2">
             <div class="profile-head">
                 <div class="avatar" data-toggle="modal" data-target="#actionSheet" (click)="showClose()">

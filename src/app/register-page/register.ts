@@ -4,4 +4,5 @@ export class Register{
     password;
     userType;
     active:Boolean = true;
+    
 }

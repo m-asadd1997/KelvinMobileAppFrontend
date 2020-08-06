@@ -13,6 +13,7 @@ export class NewsfeedPageComponent implements OnInit {
 
   SlideOptions = { items: 1, dots: true, nav: true };
   CarouselOptions = { items: 3, dots: true, nav: true };
+  innerHeight: number = window.innerHeight - 100;
   Images = ['assets/img/sample/photo/d1.jpg', 'assets/img/sample/photo/d2.jpg', 'assets/img/sample/photo/d3.jpg']
   id = sessionStorage.getItem("userId");
   userAds: Array<any> = [];
@@ -20,20 +21,23 @@ export class NewsfeedPageComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   screenHeight=null;
   screenWidth;
+  token;
   constructor(private router: Router, private toastService: ToastUtilService, private postService: PostService) {
-    this.onResize();
+    // this.onResize();
    }
 
   ngOnInit(): void {
     this.getUserPosts();
     this.getBusinessPosts();
+    // this.token = sessionStorage.getItem("firebaseToken")
+    
   }
-  onResize(event?) {
-    this.screenHeight = window.innerHeight - 102;
-    this.screenWidth = window.innerWidth;
+  // onResize(event?) {
+  //   this.screenHeight = window.innerHeight - 102;
+  //   this.screenWidth = window.innerWidth;
 
-    console.log(this.screenHeight)
-  }
+  //   console.log(this.screenHeight)
+  // }
 
    
 
@@ -64,6 +68,13 @@ gotoAddPreview(id) {
 
 gotoUserProfile(id) {
   this.router.navigate(['profiles/' + id])
+}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+  this.innerHeight = window.innerHeight - 102;
+  console.log("height",this.innerHeight);
+  
 }
 
 }
