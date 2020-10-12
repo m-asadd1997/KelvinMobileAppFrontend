@@ -15,6 +15,7 @@ export class RegisterPageComponent implements OnInit {
   innerHeight: number = window.innerHeight - 100;
   checked = false;
   confirmPassword;
+  typeChange = "password";
   constructor(private router:Router,private service: MainService, private toastService:ToastUtilService) { }
 
   ngOnInit(): void {
@@ -85,6 +86,15 @@ export class RegisterPageComponent implements OnInit {
 onChecked(){
   this.checked = !this.checked;
   console.log("checked ", this.checked)
+}
+
+onToggleShowPassword(){
+  if(this.typeChange === "password"){
+    this.typeChange = "text"
+  }
+  else if(this.typeChange === "text"){
+    this.typeChange = "password"
+  }
 }
 
   

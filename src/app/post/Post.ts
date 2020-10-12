@@ -11,4 +11,6 @@ export default  class {
     userId;
     type;
     date:any;
+    notificationTitle;
+    notificationBody;
 }

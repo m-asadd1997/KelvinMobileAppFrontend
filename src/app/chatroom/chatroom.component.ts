@@ -52,13 +52,12 @@ export class ChatroomComponent implements OnInit {
     this.mainService.searchUsers(this.searchName).subscribe(d => {
 
       if (d.status == 200) {
-
+        this.listOfUsers = [];
         d.result.map(n => {
-          let index = this.listOfUsers.findIndex(d => d.id == n.id);
-          if (!this.listOfUsers.includes(index))
+          // let index = this.listOfUsers.findIndex(d => d.id == n.id);
+          // if (!this.listOfUsers.includes(index))
             this.listOfUsers.push(n);
         })
-
       }
       else {
         this.showError = true;
@@ -70,6 +69,7 @@ export class ChatroomComponent implements OnInit {
 
   checkSearchName() {
     if (this.searchName === "") {
+      this.listOfUsers = [];
       this.showError = false;
     }
   }
