@@ -54,16 +54,7 @@ export class BottomMenuComponent implements OnInit {
     this.checkSessionStorage();
     this.getProfilePicture();
     this.getNotificationCount();
-    // this.updateNotificationCount();
     this.getChatsCount();
-    // this.messagingService.requestPermission()
-    // this.messagingService.receiveMessage()
-    // this.getToken();
-
-    // this.getAllNotifications();
-    // this.messagingService.requestPermission()
-    // this.messagingService.receiveMessage()
-    // this.message = this.messagingService.currentMessage
   }
 
   getToken() {
@@ -101,12 +92,10 @@ export class BottomMenuComponent implements OnInit {
     if (this.stompClient) {
       this.goOffline();
       this.stompClient.unsubscribe();
-      // this.stompClient.terminate()
     }
   }
 
   getAllFriends() {
-    // this.profilePicture = sessionStorage.getItem('profilePicture');
     this.friendsArray = [];
 
     this.service.getAllFriendsAndStatus(this.id).subscribe((d) => {
@@ -122,6 +111,7 @@ export class BottomMenuComponent implements OnInit {
   openGlobalSocketForRequestNotification() {
     console.log("open global socket");
     let that = this;
+    
     this.stompClient.subscribe(`/topic/notification/${this.id}`, (message) => {
       console.log(JSON.parse(message.body), "   =========message");
       let notificationMsg = JSON.parse(message.body).result.message;
@@ -156,6 +146,7 @@ export class BottomMenuComponent implements OnInit {
             
         }
       }
+      
     );
   }
 

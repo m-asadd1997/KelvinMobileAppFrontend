@@ -219,8 +219,8 @@ export class ProfileComponent implements OnInit {
   }
 
   populateFriendsIdObj() {
-    this.friendsIdObj.notificationTitle = "New notification from Montreal Sauvage"
-    this.friendsIdObj.notificationBody = sessionStorage.getItem("username") + "sent you a friend request";
+    // this.friendsIdObj.notificationTitle = "New notification from Montreal Sauvage"
+    this.friendsIdObj.notificationBody = sessionStorage.getItem("username") + " sent you a friend request";
     this.friendsIdObj.userId = sessionStorage.getItem('userId');
     this.friendsIdObj.friendId = this.id;
   }

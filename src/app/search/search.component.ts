@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
 
-  searchName;
+  searchName = "";
   listOfUsers = [];
   showError = false;
   id;
@@ -21,15 +21,17 @@ export class SearchComponent implements OnInit {
     this.id = sessionStorage.getItem('userId')
   }
 
-  getUsersOnChange() {
+  getUsersOnChange(event) {
+    console.log("search name", event)
     this.showError = false;
     this.checkSearchName()
     this.listOfUsers = [];
     this.service.searchUsers(this.searchName).subscribe(d => {
       if (d.status == 200) {
+        this.listOfUsers = [];
         d.result.map(n => {
-          let index = this.listOfUsers.findIndex(d => d.id == n.id);
-          if (!this.listOfUsers.includes(index))
+          // let index = this.listOfUsers.findIndex(d => d.id == n.id);
+          // if (!this.listOfUsers.includes(index))
             this.listOfUsers.push(n);
         })
                 
@@ -44,6 +46,7 @@ export class SearchComponent implements OnInit {
 
   checkSearchName() {
     if (this.searchName === "") {
+      this.listOfUsers = [];
       this.showError = false;
     }
   }

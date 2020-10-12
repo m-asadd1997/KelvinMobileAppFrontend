@@ -17,6 +17,7 @@ export class LoginPageComponent implements OnInit {
   public innerHeight: any = window.innerHeight - 100;
   profileObj: Profile = new Profile();
   token;
+  typeChange = "password";
   constructor(private router: Router, private service: LoginService, private toastService: ToastUtilService, private mainService: MainService,private messagingService: MessagingService) { }
 
 
@@ -114,6 +115,15 @@ export class LoginPageComponent implements OnInit {
   this.innerHeight = window.innerHeight - 102;
   console.log("height",this.innerHeight);
   
+}
+
+onToggleShowPassword(){
+  if(this.typeChange === "password"){
+    this.typeChange = "text"
+  }
+  else if(this.typeChange === "text"){
+    this.typeChange = "password"
+  }
 }
 
 

@@ -78,6 +78,8 @@ export class PostComponent implements OnInit {
     this.PostObj.description = obj.description;
     this.PostObj.image = this.image;
     this.PostObj.url = obj.url;
+    this.PostObj.notificationTitle = "New notification from Montreal Sauvage";
+    this.PostObj.notificationBody = sessionStorage.getItem("username") + " added a new post";
 
     this.service.submitPost(this.userId,this.PostObj)
       .subscribe((response) => {
